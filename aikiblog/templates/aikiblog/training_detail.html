@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+    <div id="post">
+        <div id="post_avatar">
+        <a href="{% url "user-detail" object.user.id %}"><img src="{{ STATIC_URL|cut:'static/' }}{{ object.user.avatar }}" height=100 alt="" class="center" /></a>
+        </div>
+        <div id="post_head_training_detail">
+        <br><a href="{% url "user-detail" object.user.id %}">{{ object.user.first_name }} {{ object.user.last_name }}</a>
+            {% ifequal object.user.sex "M" %}
+            był
+            {% endifequal %}
+            {% ifequal object.user.sex "K" %}
+            była
+            {% endifequal %}
+            na
+            {% ifequal object.type "T" %}
+            treningu
+            {% endifequal %}
+            {% ifequal object.type "S" %}
+            stażu
+            {% endifequal %}
+            <br> {{ object.date }} w {{ object.place }}
+        </div>
+        <div id="post_body_training_detail"><br>
+        Sensei: {{ object.sensei }}<br><br>
+    {% for technique in object.techniques.all %}
+        Technika: <b>{{ technique.stand.name }} {{ technique.attack.name }} {{ technique.technique.name }}</b><br>
+        Popełnione błędy:<br>
+        {{ technique.mistakes }}<br><br>
+    {% endfor %}
+        Notatki:<br>
+        {{ object.notes }}
+
+        </div>
+    </div>
+
+{% endblock %}
+{% block menuright %}
+    {% include "aikiblog/parts/menuright.html" %}
+{% endblock %}

@@ -1,0 +1,46 @@
+{% load staticfiles %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="content-language" content="pl">
+  <meta name="robots" content="ALL">
+  <title>AIKI-BLOG</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}style.css"  />
+</head>
+<body>
+<div id="top">
+	<div id="NAGLOWEK">&nbsp;</div>
+        <div id="menu">
+            <a href="{% url "news-list" %}">NEWS</a> &nbsp;
+            |&nbsp; <a href="{% url "training-list" %}">TRENINGI</a> &nbsp;
+            | &nbsp; <a href="{% url "stage-list" %}">STAŻE</a> &nbsp;
+            | &nbsp; <a href="{% url "dojo-list" %}">DOJO</a> &nbsp;
+            | &nbsp; KONTAKT &nbsp;
+            {% if not request.user.is_authenticated %}
+                | &nbsp; LOGIN &nbsp;
+                | &nbsp; REJESTRACJA
+            {% else %}
+                | &nbsp; WYLOGUJ: {{ request.user.username }} &nbsp;
+
+            {% endif %}
+        </div>
+
+        <div id="container">
+            <div id="main">
+            {% block content %}
+	        {% endblock %}
+        </div>
+                {% block menuright %}
+                {% endblock %}
+        </div>
+        <div id="footer">
+            <br><br>
+            Projekt i realizacja: Paweł Kowalik<br> Wszelkie prawa zastrzeżone © AIKIBLOG 2015
+        </div>
+</div>
+
+
+
+
+</body></html>

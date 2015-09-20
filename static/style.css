@@ -1,0 +1,307 @@
+html, body
+{
+    background-image:url(images/bg.png);
+	background-color: #eeeeee;
+	color: #000;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	text-shadow: 1px 1px 0px white;
+}
+
+
+a:link { color: #808080; text-decoration: none; background-color: transparent;}
+a:visited { color: #808080; text-decoration: none; background-color: transparent }
+a:hover { color: #373737; text-decoration: none; background-color: transparent;}
+a:active { color: #808080; text-decoration: dashed; background-color:transparent }
+
+#top
+{
+	width: 1080px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 0px;
+	padding-right: 0px;
+	text-align: center;
+	background-color: #ffffff;
+	box-shadow: 0 0 30px 1px black;
+}
+
+#NAGLOWEK
+{
+        background-image:url(images/logo03.png);
+        width: 1080px;
+        height: 294px;
+	background-color: #eeeeee;
+	clear:both;
+	
+}
+
+#menu
+{
+        width: 900px;
+        height: 40px;
+        text-align: left;
+        text-decoration:none;
+        font-weight: bold;
+        font-family: Trebuchet MS;
+        color: #962225;
+        padding-top: 20px;
+        padding-left: 100px;
+        border-top: 1px dashed #CBCBCB;
+        clear:both;
+}
+
+#main
+{
+width: 560px;
+height:auto;
+float: left;
+padding-right: 20px;
+padding-left: 100px;
+text-align: justify;
+color: #808080;
+}
+
+#menuright
+{
+width: 300px;
+float: right;
+height:auto;
+padding-right: 100px;
+}
+
+#menuright_logo
+{
+   background-image:url(images/recent_training.png);
+    width: 300px;
+    height: 40px;
+}
+
+#menuright_post
+{
+    height: 60px;
+    float: left;
+}
+
+
+#menuright_avatar
+{
+    height: 50px;
+    width: 50px;
+    float: left;
+}
+
+#menuright_head
+{
+    width: 250px;
+    float: right;
+    font: 15px Verdana;
+    text-align: left;
+
+}
+#container
+{
+
+  width: auto;
+  height: auto;
+  font: 14px Verdana;
+}
+
+
+
+#container1
+{
+
+  width: auto;
+  height: 510px;
+  font: 14px Verdana;
+}
+
+#post
+{
+    width: auto;
+
+}
+
+#post_avatar
+{
+    height: 70px;
+    width: 70px;
+    float: left;
+}
+
+#post_avatar_news
+{
+    height: auto;
+    width: 160px;
+    float: left;
+}
+
+#post_head
+{
+    width: 470px;
+    float: right;
+    font: 20px Verdana;
+
+}
+
+#post_head_dojo
+{
+    width: 470px;
+    height: 35px;
+    float: right;
+    font: 20px Verdana;
+
+}
+
+#post_head_dojo2
+{
+    width: 470px;
+    height: 35px;
+    float: right;
+    font: 14px Verdana;
+
+}
+#post_head_news
+{
+    width: 380px;
+    height: 35px;
+    float: right;
+    font: 20px Verdana;
+
+}
+
+#post_head_news2
+{
+    width: 380px;
+    height: 35px;
+    float: right;
+    font: 14px Verdana;
+
+}
+#post_head_user_detail
+{
+    width: 440px;
+    float: right;
+    font: 15px Verdana;
+
+}
+
+#post_head_dojo_detail
+{
+    width: 570px;
+    float: right;
+    font: 20px Verdana;
+
+}
+
+#post_head_dojo_detail2
+{
+    width: 570px;
+    float: right;
+    font: 14px Verdana;
+
+}
+
+#post_head_training_detail
+{
+    width: 450px;
+    float: right;
+    font: 20px Verdana;
+
+}
+
+#post_body
+{
+    padding-top: 80px;
+}
+
+#post_body_news
+{
+    padding-top: 80px;
+}
+
+#post_body_user_detail
+{
+    padding-top: 100px;
+}
+
+#post_body_training_detail
+{
+    padding-top: 100px;
+}
+
+#post_body_dojo_detail
+{
+    padding-top: 100px;
+}
+
+#post_body_dojo_detail_images
+{
+    width: 570px;
+    float: right;
+
+}
+
+#post_body_avatar
+{
+    height: 40px;
+    width: 40px;
+    float: left;
+}
+
+#post_body_entry
+{
+    height: 40px;
+    width: 510px;
+    float: right;
+    font: 14px Verdana;
+
+}
+#footer
+{
+        font: 14px Verdana;
+        clear:both;
+        background-color:#ffffff;
+        width: 900px;
+        height: 100px;
+        text-align: right;
+        border-top: 1px dashed #CBCBCB;
+}
+
+#footer img
+{
+        border: 0px;
+        background-color:transparent;
+        padding:0px;
+        margin:0px;
+}
+
+h1 {
+  font: 14px Verdana;
+  color: #ffffff;
+  font-weight: normal;
+  }
+
+#galeria
+{
+width: 790px;
+text-align:center;
+}
+
+a:hover {
+transition:all 1s;
+-moz-transition:all 1s;
+-webkit-transition:all 1s;
+-o-transition:all 1s;
+text-decoration: #000000 underline dashed;
+}
+
+h2
+{
+font: 30px Georgia;
+color: #349d8a;
+font-weight: normal;
+text-shadow: 1px 1px 0px white;
+}
