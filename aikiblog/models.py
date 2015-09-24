@@ -2,6 +2,7 @@
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import AbstractUser
+from PIL import Image
 
 
 class User(AbstractUser):
@@ -9,10 +10,12 @@ class User(AbstractUser):
         ('K','Kobieta'),
         ('M','Mężczyzna'),
     )
-    avatar = models.ImageField(upload_to='static/avatars/%Y/%m/%d', null=True, blank=True)
+    avatar = models.ImageField(upload_to='static/avatars/', null=True, blank=True)
     start_year = models.IntegerField(null=True, blank=True, verbose_name='Trenuje od')
     about_text = models.TextField(null=True, blank=True, verbose_name='O mnie')
     sex = models.CharField(max_length=1, choices=SEX, verbose_name='Płeć')
+
+
 
 
 class News(models.Model):
@@ -118,7 +121,7 @@ class TechTren(models.Model):
         return self.slug
 
     def save(self):
-        self.slug = slugify(str(self.date) + " " + str(self.stand) + " " + str(self.attack) + " " + str(self.technique))
+        self.slug = slugify(str(self.date) + " " + str(self.user)+ " " + str(self.stand) + " " + str(self.attack) + " " + str(self.technique))
         super(TechTren, self).save()
 
 

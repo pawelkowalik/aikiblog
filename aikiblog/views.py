@@ -1,8 +1,14 @@
 # -*- coding: utf-8 -*-
 from django.views import generic
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from django.shortcuts import redirect, render
+
+from annoying.decorators import ajax_request
+from annoying.decorators import render_to
 
 from aikiblog.models import Training, User, Dojo, News
+from aikiblog.forms import LoginForm
 
 
 class DojoList(generic.ListView):
@@ -48,7 +54,7 @@ class TrainingList(generic.ListView):
 
 class NewsList(generic.ListView):
     model = News
-    paginate_by = 10
+    paginate_by = 6
     context_object_name = 'news_list'
     queryset = News.objects.order_by('-posted_date')
 
@@ -98,3 +104,25 @@ class NewsDetail(generic.DetailView):
         context['all_trainings'] = Training.objects.order_by('-date')[:7]
 
         return context
+
+
+def log_in(request):
+    form = LoginForm(request.POST or None)
+
+    if form.is_valid():
+        username = form.cleaned_data.get('username')
+        password = form.cleaned_data.get('password')
+        user = authenticate(username=username, password=password)
+        if user is None:
+            context = {
+                'form': form,
+                'error': u'Błędne hasło',
+            }
+            return render(request, 'login.html', context)
+        login(request, user)
+        next_page = request.GET.get('next', None)
+        if next_page == '/logout/':
+            next_page = '/'
+        return redirect(next_page or '/')
+
+    return render(request, 'login.html', {'form': form})

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+	<form method="post" class="form-horizontal" role="form">
+		{% csrf_token %}
+		<div>Zaloguj się do portalu AIKIBLOG:<br><br>
+			<div class="form-group">
+				<label for="{{ form.username.id_for_label }}" class="col-sm-2 control-label">{{ form.username.label }}</label>
+				{{ form.username }}
+				{% if form.uername.errors %}
+					{% for error in form.username.errors %}
+						<span class="text-error">{{ error }}</span>
+					{% endfor %}
+				{% endif %}
+			</div>
+			<div class="form-group">
+				<label for="{{ form.password.id_for_label }}" class="col-sm-2 control-label">{{ form.password.label }}</label>
+				{{ form.password }}
+				{% if form.password.errors %}
+					{% for error in form.password.errors %}
+						<span class="text-error">{{ error }}</span>
+					{% endfor %}
+				{% endif %}
+				{{ error }}
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10"><br>
+					<button type="submit" class="btn btn-default">Zaloguj</button></center>
+
+				</div>
+			</div>
+		</div>
+	</form>
+{% endblock %}

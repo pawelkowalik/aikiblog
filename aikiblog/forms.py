@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect
 from aikiblog.models import Training, User
+from django.contrib.auth.forms import AuthenticationForm
 
 
 class RegisterForm(forms.Form):
@@ -73,11 +74,11 @@ def add_training(request):
 
 
 class LoginForm(forms.Form):
-    login = forms.CharField(label='login')
+    username = forms.CharField(label='login')
     password = forms.CharField(label='hasło', widget=forms.PasswordInput)
 
     def clean_login(self):
-        login = self.cleaned_data.get('login')
+        login = self.cleaned_data.get('username')
         if not User.objects.filter(username=login):
             raise forms.ValidationError(u'Podany login nie istnieje w bazie')
         return login

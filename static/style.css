@@ -40,7 +40,7 @@ a:active { color: #808080; text-decoration: dashed; background-color:transparent
 #menu
 {
         width: 900px;
-        height: 40px;
+        height: 60px;
         text-align: left;
         text-decoration:none;
         font-weight: bold;
@@ -142,7 +142,7 @@ padding-right: 100px;
 {
     width: 470px;
     float: right;
-    font: 20px Verdana;
+    font: 16px Verdana;
 
 }
 

@@ -19,6 +19,10 @@ urlpatterns = patterns('',
         url(r'^trainings/(?P<page>[0-9]+)/$', TrainingList.as_view(), name='training-list'),
         url(r'^user/(?P<pk>[\w\-_]+)/$', UserDetail.as_view(), name='user-detail'),
 
-        url(r'^rejestracja/$', 'aikiblog.forms.register'),
+        url(r'^register/$', 'aikiblog.forms.register', name='register'),
         url(r'^dodaj_trening/$', 'aikiblog.forms.add_training'),
+        url(r'^login/$', 'aikiblog.views.log_in', name='login'),
+)
+urlpatterns += patterns('django.contrib.auth.views',
+    url(r'^wyloguj$', 'logout', {'next_page': '/'}, name='logout'),
 )
