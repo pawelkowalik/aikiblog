@@ -10,12 +10,10 @@ class User(AbstractUser):
         ('K','Kobieta'),
         ('M','Mężczyzna'),
     )
-    avatar = models.ImageField(upload_to='static/avatars/', null=True, blank=True)
+    avatar = models.ImageField(upload_to='static/avatars/%Y/%m/%d', null=True, blank=True)
     start_year = models.IntegerField(null=True, blank=True, verbose_name='Trenuje od')
     about_text = models.TextField(null=True, blank=True, verbose_name='O mnie')
     sex = models.CharField(max_length=1, choices=SEX, verbose_name='Płeć')
-
-
 
 
 class News(models.Model):
@@ -151,3 +149,8 @@ class Training(models.Model):
         dt = '{:%Y-%m-%d %H-%M}'.format(d)
         self.slug = slugify(str(self.user) + " " + str(dt) + " " + str(self.place))
         super(Training, self).save()
+
+
+class TempAvatar(models.Model):
+    image_file = models.ImageField(upload_to='temp_avatars/%Y/%m/%d')
+    created_at = models.DateTimeField(auto_now_add=True)

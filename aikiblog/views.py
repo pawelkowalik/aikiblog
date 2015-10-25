@@ -1,14 +1,17 @@
 # -*- coding: utf-8 -*-
 from django.views import generic
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
-from django.shortcuts import redirect, render
-
-from annoying.decorators import ajax_request
-from annoying.decorators import render_to
-
 from aikiblog.models import Training, User, Dojo, News
-from aikiblog.forms import LoginForm
+
+
+import datetime
+from django.contrib.auth import get_user_model
+from django.http.response import HttpResponseRedirect
+from django.shortcuts import redirect, get_object_or_404
+from annoying.decorators import render_to
+from aikiblog.forms import SaveUserDataForm
+
+User = get_user_model()
 
 
 class DojoList(generic.ListView):
@@ -106,23 +109,12 @@ class NewsDetail(generic.DetailView):
         return context
 
 
-def log_in(request):
-    form = LoginForm(request.POST or None)
+@render_to('save_user_data.html')
+def save_user_data(request, user_id):
+        form = SaveUserDataForm(request.POST or None, request.FILES or None)
+        if form.is_valid():
+            form.save(user_id)
+            return HttpResponseRedirect('/')
+        else:
+            return {'save_user_data_form': form}
 
-    if form.is_valid():
-        username = form.cleaned_data.get('username')
-        password = form.cleaned_data.get('password')
-        user = authenticate(username=username, password=password)
-        if user is None:
-            context = {
-                'form': form,
-                'error': u'Błędne hasło',
-            }
-            return render(request, 'login.html', context)
-        login(request, user)
-        next_page = request.GET.get('next', None)
-        if next_page == '/logout/':
-            next_page = '/'
-        return redirect(next_page or '/')
-
-    return render(request, 'login.html', {'form': form})

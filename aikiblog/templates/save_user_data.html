@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+			Witamy Cię na portalu AIKIBLOG.PL!<br>
+            Aby w pełni móc korzystać z serwisu, ustaw swoje podstawowe dane:<br><br>
+			<div>Login: {{ user.username}}</div>
+			<div>E-mail: {{ user.email}}</div><br>
+			<form method="post" action="/{{ user.id }}/save_user_data" enctype="multipart/form-data">
+				{% csrf_token %}
+                <div>
+					Imię:
+					{{ save_user_data_form.first_name }}
+					<span class="error">{{ save_user_data_form.first_name.errors }}</span>
+				</div>
+                <div>
+					Nazwisko:
+					{{ save_user_data_form.last_name }}
+					<span class="error">{{ save_user_data_form.last_name.errors }}</span>
+				</div>
+				<div>
+					<br>Wpisz od kiedy trenujesz aikido:
+					{{ save_user_data_form.start_year }}
+					<span class="error">{{ save_user_data_form.start_year.errors }}</span>
+				</div>
+				<div>
+					<br>Wybierz płeć:
+					<div class="checkbox">
+						<div class="sex">
+							<label class="col-sm-2">
+								<input type="radio" name="sex" id="id_sex_0" value="K" {% if selected_sex == 'K' %}checked{% endif %}> Aikidoczka
+							</label>
+
+						</div>
+						<div class="sex">
+							<label class="col-sm-2">
+								<input type="radio" name="sex" id="id_sex_1" value="M" {% if selected_sex == 'M' %}checked{% endif %}> Aikidoka
+							</label>
+
+						</div>
+						<span class="error">{{ save_user_data_form.sex.errors }}</span>
+					</div>
+				</div>
+				<div>
+					<br>Możesz zmienić avatar domyślny klikając tu:<br>{{ save_user_data_form.avatar }}
+					<div>
+						<span class="js-new-avatar-error error"></span>
+					</div>
+                </div>
+				<div>
+					<br>Możesz wpisać kilka słów o sobie:<br>
+					<div>
+						{{ save_user_data_form.about_me }}
+					</div>
+				</div>
+				<button type="submit" class="btn btn-primary">Zapisz</button>
+			</form>
+
+{% endblock %}

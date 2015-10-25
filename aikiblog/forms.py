@@ -1,84 +1,91 @@
 # -*- coding: utf-8 -*-
+
 from django import forms
-from django.shortcuts import render_to_response
-from django.template import RequestContext
-from django.http import HttpResponseRedirect
-from django.core.validators import MinLengthValidator
-from django.contrib.auth import authenticate, login, logout
-from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect
-from aikiblog.models import Training, User
-from django.contrib.auth.forms import AuthenticationForm
+from aikiblog.models import Training, User, TempAvatar
+from PIL import Image
 
-
-class RegisterForm(forms.Form):
-    login = forms.CharField(label='login')
-    password = forms.CharField(
-        label='hasło',
-        widget=forms.PasswordInput,
-        validators=[MinLengthValidator(6)],
-        error_messages={'min_length': u'Hasło musi mieć co najmniej 6 znaków'}
-    )
-
-    password2 = forms.CharField(
-        label='powtórz hasło', widget=forms.PasswordInput)
-    email = forms.EmailField(label='e-mail', widget=forms.EmailInput)
-
-    def clean_login(self):
-        login = self.cleaned_data.get('login')
-        if User.objects.filter(username=login):
-            raise forms.ValidationError(u'Podany login istnieje w bazie')
-        return login
-
-    def clean_password2(self):
-        password = self.cleaned_data.get('password')
-        password2 = self.cleaned_data.get('password2')
-        if password2 != password:
-            raise forms.ValidationError(u'Podane hasła nie są zgodne')
-        return password2
-
-
-def register(request):
-    form = RegisterForm(request.POST or None)
-
-    if form.is_valid():
-        username = request.POST.get('login')
-        password = request.POST.get('password')
-        email = request.POST.get('email')
-
-        user = User.objects.create_user(username=username, email=email)
-        user.set_password(password)
-        user.backend = 'django.contrib.auth.backends.ModelBackend'
-        user.save()
-        login(request, user)
-
-        redirect_url = reverse('training-list')
-        return redirect(redirect_url)
-
-    return render(request, 'registration.html', {'form': form})
+import datetime
+from annoying.functions import get_object_or_None
+from django.contrib.auth import get_user_model
+from django.core.files.uploadedfile import SimpleUploadedFile
+from os.path import join, dirname, realpath
 
 
 class AddTrainingForm(forms.ModelForm):
     class Meta:
-        model=Training
+        model = Training
         fields = ['user', 'date', 'place', 'techniques']
 
 
 def add_training(request):
     form = AddTrainingForm(request.POST or None)
     if form.is_valid():
-        form.slug = '1234'
         form.save()
 
     return render(request, 'add_training.html', {'form': form.as_p()})
 
 
-class LoginForm(forms.Form):
-    username = forms.CharField(label='login')
-    password = forms.CharField(label='hasło', widget=forms.PasswordInput)
+_current_dir = dirname(realpath(__file__))
+CUR_YEAR = datetime.datetime.now().year
+START_YEAR_CHOICES = tuple(
+    [(year, year) for year in range(CUR_YEAR, CUR_YEAR - 30, -1)])
+K = 'K'
+M = 'M'
+SEX_CHOICES = (
+    (K, u'kobieta'),
+    (M, u'mężczyzna')
+)
 
-    def clean_login(self):
-        login = self.cleaned_data.get('username')
-        if not User.objects.filter(username=login):
-            raise forms.ValidationError(u'Podany login nie istnieje w bazie')
-        return login
+
+class SaveUserDataForm(forms.Form):
+    first_name = forms.CharField(initial='')
+    last_name = forms.CharField(initial='')
+    start_year = forms.ChoiceField(choices=START_YEAR_CHOICES, initial=2004)
+    sex = forms.ChoiceField(widget=forms.RadioSelect, choices=SEX_CHOICES)
+    avatar = forms.ImageField()
+    about_me = forms.CharField(widget=forms.Textarea(), required=False, initial='')
+
+    def __init__(self, *args, **kwargs):
+        super(SaveUserDataForm, self).__init__(*args, **kwargs)
+
+    def save(self, user_id):
+        first_name = self.cleaned_data.get('first_name')
+        last_name = self.cleaned_data.get('last_name')
+        start_year = self.cleaned_data.get('start_year')
+        sex = self.cleaned_data.get('sex')
+        about_me = self.cleaned_data.get('about_me')
+        avatar = self.cleaned_data.get('avatar')
+        user = get_user_model().objects.get(id=user_id)
+        if user:
+            user.first_name = first_name
+            user.last_name = last_name
+            user.start_year = start_year
+            user.sex = K if sex == 'K' else M
+            if avatar:
+                user.avatar = SimpleUploadedFile(avatar.name, avatar.read(), content_type='image/jpeg')
+                user.save()
+                im = Image.open(str(user.avatar))
+                a = im.size[0]
+                b = im.size[1]
+                size = (300, 300)
+                if a > b:
+                    c = (a - b)/2
+                    d = a - c
+                    box = (c, 0, d, b)
+                elif b > a:
+                    c = (b - a)/2
+                    d = b - c
+                    box = (0, c, a, d)
+                else:
+                    box = (0, 0, a, a)
+
+            region = im.crop(box)
+            region.thumbnail(size)
+            region.save(str(user.avatar), "JPEG")
+
+        if about_me:
+            user.about_text = about_me
+
+        user.save()
+

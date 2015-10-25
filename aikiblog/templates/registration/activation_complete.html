@@ -1,0 +1,9 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+    {% csrf_token %}
+        Aktywacja zakończona!<br>
+    Aby w pełni korzystać z serwisu <a href="{% url 'save_user_data' request.user.id %}">uzupełnij swoje dane.</a><br><br>
+
+{% endblock %}
