@@ -1,8 +1,17 @@
 # -*- coding: utf-8 -*-
 from django.views import generic
 from django.contrib.auth.models import User
-
 from aikiblog.models import Training, User, Dojo, News
+
+
+import datetime
+from django.contrib.auth import get_user_model
+from django.http.response import HttpResponseRedirect
+from django.shortcuts import redirect, get_object_or_404
+from annoying.decorators import render_to
+from aikiblog.forms import SaveUserDataForm
+
+User = get_user_model()
 
 
 class DojoList(generic.ListView):
@@ -48,7 +57,7 @@ class TrainingList(generic.ListView):
 
 class NewsList(generic.ListView):
     model = News
-    paginate_by = 10
+    paginate_by = 6
     context_object_name = 'news_list'
     queryset = News.objects.order_by('-posted_date')
 
@@ -98,3 +107,14 @@ class NewsDetail(generic.DetailView):
         context['all_trainings'] = Training.objects.order_by('-date')[:7]
 
         return context
+
+
+@render_to('save_user_data.html')
+def save_user_data(request, user_id):
+        form = SaveUserDataForm(request.POST or None, request.FILES or None)
+        if form.is_valid():
+            form.save(user_id)
+            return HttpResponseRedirect('/')
+        else:
+            return {'save_user_data_form': form}
+

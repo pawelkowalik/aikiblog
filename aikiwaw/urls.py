@@ -18,7 +18,10 @@ urlpatterns = patterns('',
         url(r'^trainings/?$', TrainingList.as_view(), name='training-list'),
         url(r'^trainings/(?P<page>[0-9]+)/$', TrainingList.as_view(), name='training-list'),
         url(r'^user/(?P<pk>[\w\-_]+)/$', UserDetail.as_view(), name='user-detail'),
+        url(r'^accounts/', include('registration.backends.default.urls')),
 
-        url(r'^rejestracja/$', 'aikiblog.forms.register'),
         url(r'^dodaj_trening/$', 'aikiblog.forms.add_training'),
+
+        url(r'^(?P<user_id>[\d]+)/save_user_data', 'aikiblog.views.save_user_data', name='save_user_data'),
+
 )

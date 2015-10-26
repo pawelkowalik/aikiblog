@@ -17,14 +17,18 @@
             | &nbsp; <a href="{% url "stage-list" %}">STAŻE</a> &nbsp;
             | &nbsp; <a href="{% url "dojo-list" %}">DOJO</a> &nbsp;
             | &nbsp; KONTAKT &nbsp;
+            {% csrf_token %}
             {% if not request.user.is_authenticated %}
-                | &nbsp; LOGIN &nbsp;
-                | &nbsp; REJESTRACJA
+                | &nbsp; <a href="{% url 'auth_login' %}">LOGIN</a> &nbsp;
+                | &nbsp; <a href="{% url 'registration_register' %}">REJESTRACJA</a> &nbsp;
             {% else %}
-                | &nbsp; WYLOGUJ: {{ request.user.username }} &nbsp;
+                | &nbsp; <a href="{% url 'auth_logout' %}?next=/">LOGOUT </a>&nbsp;<hr>
 
+                <font size = 2px> &nbsp; <a href="{% url "user-detail" request.user.id %}"><img src="{{ STATIC_URL|cut:'static/' }}{{ request.user.avatar }}" height=30 alt="" class="center" /> {{ request.user.first_name|upper }} {{ request.user.last_name|upper }}</a> &nbsp;
+                | &nbsp; DODAJ TRENING &nbsp;
+                | &nbsp; DODAJ STAŻ &nbsp;</font>
             {% endif %}
-        </div>
+            </div>
 
         <div id="container">
             <div id="main">

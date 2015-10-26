@@ -16,6 +16,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'aikiblog',
+    'registration',
+    'sorl.thumbnail',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -40,11 +42,20 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'USER': 'aikiblog',
+        'PASSWORD': 'aikiblog',
+        'HOST': 'aikiblog'
     }
 }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.media',
+    'django.core.context_processors.request',
+    'django.core.context_processors.static',
+)
 
 LANGUAGE_CODE = 'pl'
 
@@ -61,8 +72,16 @@ AUTH_USER_MODEL = 'aikiblog.User'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
-
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
 os.path.join(BASE_DIR, 'static'),
 )
+
+REGISTRATION_OPEN = True
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_AUTO_LOGIN = True
+LOGIN_REDIRECT_URL = '/'  # The page you want users to arrive at after they successful log in
+LOGIN_URL = '/accounts/login/'
+
+
+

@@ -2,6 +2,7 @@
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import AbstractUser
+from PIL import Image
 
 
 class User(AbstractUser):
@@ -118,7 +119,7 @@ class TechTren(models.Model):
         return self.slug
 
     def save(self):
-        self.slug = slugify(str(self.date) + " " + str(self.stand) + " " + str(self.attack) + " " + str(self.technique))
+        self.slug = slugify(str(self.date) + " " + str(self.user)+ " " + str(self.stand) + " " + str(self.attack) + " " + str(self.technique))
         super(TechTren, self).save()
 
 
@@ -148,3 +149,8 @@ class Training(models.Model):
         dt = '{:%Y-%m-%d %H-%M}'.format(d)
         self.slug = slugify(str(self.user) + " " + str(dt) + " " + str(self.place))
         super(Training, self).save()
+
+
+class TempAvatar(models.Model):
+    image_file = models.ImageField(upload_to='temp_avatars/%Y/%m/%d')
+    created_at = models.DateTimeField(auto_now_add=True)
