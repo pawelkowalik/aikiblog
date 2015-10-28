@@ -11,23 +11,62 @@ from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
 from os.path import join, dirname, realpath
 
+from django.http.response import HttpResponseRedirect
 
-class AddTrainingForm(forms.ModelForm):
-    class Meta:
-        model = Training
-        fields = ['user', 'date', 'place', 'techniques']
+from datetime import date
+from django.forms import widgets
+from aikiblog.models import Sensei, Dojo, TechTren
 
-
-def add_training(request):
-    form = AddTrainingForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-
-    return render(request, 'add_training.html', {'form': form.as_p()})
-
-
-_current_dir = dirname(realpath(__file__))
+CUR_DAY = datetime.datetime.now().day
+CUR_MONTH = datetime.datetime.now().month
 CUR_YEAR = datetime.datetime.now().year
+DOJOS = Dojo.objects.all
+TECHNIQUES = TechTren.objects.all
+SENSEIES = Sensei.objects.all
+
+HOUR_CHOICES = tuple(
+    [(year, year) for year in range(0, 24, +1)])
+MINUTES_CHOICES = (
+    (0, '00'),
+    (15, 15),
+    (30, 30),
+    (45, 45),
+)
+DAY_CHOICES = tuple(
+    [(year, year) for year in range(1, 32, +1)])
+MONTH_CHOICES = tuple(
+    [(year, year) for year in range(1, 13, +1)])
+YEAR_CHOICES = tuple(
+    [(year, year) for year in range(CUR_YEAR, CUR_YEAR - 30, -1)])
+dojos = Dojo.objects.all
+for dojo in dojos:
+        tup = tup+(dojo.name, dojo.name)
+
+PLACE_CHOICES = tup
+
+
+class AddTrainingForm(forms.Form):
+
+
+
+
+
+    day = forms.ChoiceField(choices=DAY_CHOICES, initial=CUR_DAY)
+    month = forms.ChoiceField(choices=MONTH_CHOICES, initial=CUR_MONTH)
+    year = forms.ChoiceField(choices=YEAR_CHOICES, initial=CUR_YEAR)
+    hour = forms.ChoiceField(choices=HOUR_CHOICES, initial=18)
+    minutes = forms.ChoiceField(choices=MINUTES_CHOICES, initial=0)
+    place = forms.ChoiceField(choices=PLACE_CHOICES)
+    #sensei = forms.ChoiceField(choices=SENSEI_CHOICES)
+    techniques = forms.ChoiceField(widget=forms.CheckboxSelectMultiple)
+    notes = forms.CharField(widget=forms.Textarea())
+
+
+
+
+
+
+
 START_YEAR_CHOICES = tuple(
     [(year, year) for year in range(CUR_YEAR, CUR_YEAR - 30, -1)])
 K = 'K'
@@ -41,7 +80,7 @@ SEX_CHOICES = (
 class SaveUserDataForm(forms.Form):
     first_name = forms.CharField(initial='')
     last_name = forms.CharField(initial='')
-    start_year = forms.ChoiceField(choices=START_YEAR_CHOICES, initial=2004)
+    start_year = forms.ChoiceField(choices=START_YEAR_CHOICES, initial=2015)
     sex = forms.ChoiceField(widget=forms.RadioSelect, choices=SEX_CHOICES)
     avatar = forms.ImageField()
     about_me = forms.CharField(widget=forms.Textarea(), required=False, initial='')

@@ -20,7 +20,7 @@ urlpatterns = patterns('',
         url(r'^user/(?P<pk>[\w\-_]+)/$', UserDetail.as_view(), name='user-detail'),
         url(r'^accounts/', include('registration.backends.default.urls')),
 
-        url(r'^dodaj_trening/$', 'aikiblog.forms.add_training'),
+        url(r'^dodaj_trening/$', 'aikiblog.views.add_training'),
 
         url(r'^(?P<user_id>[\d]+)/save_user_data', 'aikiblog.views.save_user_data', name='save_user_data'),
 

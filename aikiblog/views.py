@@ -9,7 +9,7 @@ from django.contrib.auth import get_user_model
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect, get_object_or_404
 from annoying.decorators import render_to
-from aikiblog.forms import SaveUserDataForm
+from aikiblog.forms import SaveUserDataForm, AddTrainingForm
 
 User = get_user_model()
 
@@ -118,3 +118,18 @@ def save_user_data(request, user_id):
         else:
             return {'save_user_data_form': form}
 
+
+@render_to('add_training.html')
+def add_training(request):
+    form = AddTrainingForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect('/')
+    else:
+        return {'add_training_form': form}
+
+
+def all_dojos():
+    dojos = Dojo.object.all
+    for i in dojos:
+        print i.name

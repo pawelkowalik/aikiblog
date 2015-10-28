@@ -1,8 +1,18 @@
+{%  extends "base.html" %}
+{% block content %}
 <table>
 <form method="post" class="form-horizontal" role="form">
 		{% csrf_token %}
     <div class="form-group">
-        {{ form }}
+        Data treningu:{{ add_training_form.day }}
+        {{ add_training_form.month }}
+        {{ add_training_form.year }}<br>
+        Godzina:{{ add_training_form.hour }}:
+        {{ add_training_form.minutes }}
+        {% for dojo in add_training_form.dojos %}
+            {{ dojo.name }}
+        {% endfor %}
+
 
     </div>
 
@@ -14,3 +24,4 @@
 			</div>
 </form>
 </table>
+{% endblock %}
