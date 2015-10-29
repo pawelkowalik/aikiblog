@@ -121,7 +121,7 @@ def save_user_data(request, user_id):
 
 @render_to('add_training.html')
 def add_training(request):
-    form = AddTrainingForm(request.POST or None)
+    form = AddTrainingForm(request.POST or None, request=request)
     if form.is_valid():
         form.save()
         return HttpResponseRedirect('/')
@@ -130,6 +130,6 @@ def add_training(request):
 
 
 def all_dojos():
-    dojos = Dojo.object.all
+    dojos = Dojo.object.all()
     for i in dojos:
-        print i.name
+        print(i.name)

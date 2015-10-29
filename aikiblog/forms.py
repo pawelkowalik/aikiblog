@@ -38,33 +38,29 @@ MONTH_CHOICES = tuple(
     [(year, year) for year in range(1, 13, +1)])
 YEAR_CHOICES = tuple(
     [(year, year) for year in range(CUR_YEAR, CUR_YEAR - 30, -1)])
-dojos = Dojo.objects.all
-for dojo in dojos:
-        tup = tup+(dojo.name, dojo.name)
-
-PLACE_CHOICES = tup
 
 
-class AddTrainingForm(forms.Form):
+def _get_techniques_by_user(user):
+    techniques = TechTren.objects.filter(user__id=user.id)
+    choices = []
+    for t in techniques:
+        choices.append((t.id, t.slug))
+    return choices
 
 
+class AddTrainingForm(forms.ModelForm):
+    user = forms.CharField()
 
+    class Meta:
+        model = Training
+        exclude = ['user']
 
-
-    day = forms.ChoiceField(choices=DAY_CHOICES, initial=CUR_DAY)
-    month = forms.ChoiceField(choices=MONTH_CHOICES, initial=CUR_MONTH)
-    year = forms.ChoiceField(choices=YEAR_CHOICES, initial=CUR_YEAR)
-    hour = forms.ChoiceField(choices=HOUR_CHOICES, initial=18)
-    minutes = forms.ChoiceField(choices=MINUTES_CHOICES, initial=0)
-    place = forms.ChoiceField(choices=PLACE_CHOICES)
-    #sensei = forms.ChoiceField(choices=SENSEI_CHOICES)
-    techniques = forms.ChoiceField(widget=forms.CheckboxSelectMultiple)
-    notes = forms.CharField(widget=forms.Textarea())
-
-
-
-
-
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super(AddTrainingForm, self).__init__(*args, **kwargs)
+        if self.request.user.is_authenticated():
+            self.fields['techniques'].choices = \
+                _get_techniques_by_user(self.request.user)
 
 
 START_YEAR_CHOICES = tuple(
