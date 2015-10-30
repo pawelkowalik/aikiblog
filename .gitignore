@@ -1,0 +1,9 @@
+*.py[co]
+
+.idea/
+
+media
+*.sqlite3
+
+CACHE
+__pycache__
