@@ -15,6 +15,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'aikiblog',
     'registration',
     'sorl.thumbnail',
@@ -47,7 +48,7 @@ DATABASES = {
         'HOST': 'aikiblog'
     }
 }
-
+SITE_ID =1
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 TEMPLATE_CONTEXT_PROCESSORS = (
