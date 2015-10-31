@@ -25,8 +25,9 @@
                 | &nbsp; <a href="{% url 'auth_logout' %}?next=/">LOGOUT </a>&nbsp;<hr>
 
                 <font size = 2px> &nbsp; <a href="{% url "user-detail" request.user.id %}"><img src="{{ STATIC_URL|cut:'static/' }}{{ request.user.avatar }}" height=30 alt="" class="center" /> {{ request.user.first_name|upper }} {{ request.user.last_name|upper }}</a> &nbsp;
-                | &nbsp; DODAJ TRENING &nbsp;
-                | &nbsp; DODAJ STAŻ &nbsp;</font>
+                | &nbsp; <a href="{% url "add-training" %}">DODAJ TECHNIKI</a> &nbsp;
+                | &nbsp; <a href="{% url "add-training" %}">DODAJ TRENING</a> &nbsp;
+                | &nbsp; <a href="{% url "add-stage" %}">DODAJ STAŻ &nbsp;</a></font>
             {% endif %}
             </div>
 

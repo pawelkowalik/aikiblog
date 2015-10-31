@@ -10,6 +10,7 @@ from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect, get_object_or_404
 from annoying.decorators import render_to
 from aikiblog.forms import SaveUserDataForm, AddTrainingForm
+from django.shortcuts import render
 
 User = get_user_model()
 
@@ -123,13 +124,36 @@ def save_user_data(request, user_id):
 def add_training(request):
     form = AddTrainingForm(request.POST or None, request=request)
     if form.is_valid():
-        form.save()
+        user = request.user
+        training = Training.objects.create(
+            date=form.cleaned_data['date'],
+            place=form.cleaned_data['place'],
+            sensei=form.cleaned_data['sensei'],
+            notes=form.cleaned_data['notes'],
+            type='T',
+            user=user
+            )
+        training.techniques.add(*form.cleaned_data['techniques'])
+
         return HttpResponseRedirect('/')
     else:
-        return {'add_training_form': form}
+        return render(request, 'add_training.html', {'form': form})
 
+@render_to('add_stage.html')
+def add_stage(request):
+    form = AddTrainingForm(request.POST or None, request=request)
+    if form.is_valid():
+        user = request.user
+        training = Training.objects.create(
+            date=form.cleaned_data['date'],
+            place=form.cleaned_data['place'],
+            sensei=form.cleaned_data['sensei'],
+            notes=form.cleaned_data['notes'],
+            type='S',
+            user=user
+            )
+        training.techniques.add(*form.cleaned_data['techniques'])
 
-def all_dojos():
-    dojos = Dojo.object.all()
-    for i in dojos:
-        print(i.name)
+        return HttpResponseRedirect('/')
+    else:
+        return render(request, 'add_stage.html', {'form': form})

@@ -128,11 +128,11 @@ class Training(models.Model):
         ('T','trening'),
         ('S','staż'),
     )
-    user = models.ForeignKey(User, verbose_name='Ćwiczący')
+    user = models.ForeignKey(User, verbose_name='Ćwiczący', null=True, blank=True)
     date = models.DateTimeField('Data treningu')
     place = models.ForeignKey(Dojo, verbose_name='Miejsce treningu')
     sensei = models.ForeignKey(Sensei, verbose_name='Sensei')
-    slug = models.SlugField('Odnosnik', max_length=50)
+    slug = models.SlugField('Odnosnik', max_length=50, null=True, blank=True)
     techniques = models.ManyToManyField(TechTren, verbose_name='Techniki')
     type = models.CharField(max_length=1, choices=TYPE, verbose_name='Typ')
     notes = models.TextField(verbose_name="Notatki")
@@ -144,11 +144,11 @@ class Training(models.Model):
     def __unicode__(self):
         return self.slug
 
-    def save(self):
+    def save(self, force_insert=False, force_update=False, using=None):
         d = self.date
         dt = '{:%Y-%m-%d %H-%M}'.format(d)
         self.slug = slugify(str(self.user) + " " + str(dt) + " " + str(self.place))
-        super(Training, self).save()
+        super(Training, self).save(force_insert, force_update, using)
 
 
 class TempAvatar(models.Model):

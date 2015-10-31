@@ -17,52 +17,7 @@ from datetime import date
 from django.forms import widgets
 from aikiblog.models import Sensei, Dojo, TechTren
 
-CUR_DAY = datetime.datetime.now().day
-CUR_MONTH = datetime.datetime.now().month
 CUR_YEAR = datetime.datetime.now().year
-DOJOS = Dojo.objects.all
-TECHNIQUES = TechTren.objects.all
-SENSEIES = Sensei.objects.all
-
-HOUR_CHOICES = tuple(
-    [(year, year) for year in range(0, 24, +1)])
-MINUTES_CHOICES = (
-    (0, '00'),
-    (15, 15),
-    (30, 30),
-    (45, 45),
-)
-DAY_CHOICES = tuple(
-    [(year, year) for year in range(1, 32, +1)])
-MONTH_CHOICES = tuple(
-    [(year, year) for year in range(1, 13, +1)])
-YEAR_CHOICES = tuple(
-    [(year, year) for year in range(CUR_YEAR, CUR_YEAR - 30, -1)])
-
-
-def _get_techniques_by_user(user):
-    techniques = TechTren.objects.filter(user__id=user.id)
-    choices = []
-    for t in techniques:
-        choices.append((t.id, t.slug))
-    return choices
-
-
-class AddTrainingForm(forms.ModelForm):
-    user = forms.CharField()
-
-    class Meta:
-        model = Training
-        exclude = ['user']
-
-    def __init__(self, *args, **kwargs):
-        self.request = kwargs.pop('request', None)
-        super(AddTrainingForm, self).__init__(*args, **kwargs)
-        if self.request.user.is_authenticated():
-            self.fields['techniques'].choices = \
-                _get_techniques_by_user(self.request.user)
-
-
 START_YEAR_CHOICES = tuple(
     [(year, year) for year in range(CUR_YEAR, CUR_YEAR - 30, -1)])
 K = 'K'
@@ -71,6 +26,27 @@ SEX_CHOICES = (
     (K, u'kobieta'),
     (M, u'mężczyzna')
 )
+
+
+def _get_techniques_by_user(user):
+    techniques = TechTren.objects.filter(user__id=user.id).order_by('-date')
+    choices = []
+    for t in techniques:
+        choices.append((t.id, t.slug))
+    return choices
+
+
+class AddTrainingForm(forms.ModelForm):
+    class Meta:
+        model = Training
+        fields = ['date', 'place', 'sensei', 'techniques', 'notes']
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super(AddTrainingForm, self).__init__(*args, **kwargs)
+        if self.request.user.is_authenticated():
+            self.fields['techniques'].choices = \
+                _get_techniques_by_user(self.request.user)
 
 
 class SaveUserDataForm(forms.Form):
