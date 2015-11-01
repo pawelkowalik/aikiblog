@@ -38,6 +38,7 @@
         <td><b>Postawa</b></td>
         <td><b>Atak</b></td>
         <td><b>Technika</b></td>
+        <td><b>Błędy</b></td>
 
     </tr>
     {% for technique in techniques %}
@@ -51,9 +52,11 @@
         <td>{{ technique.stand }}&nbsp;&nbsp;</td>
         <td>{{ technique.attack }}&nbsp;&nbsp;</td>
         <td>{{ technique.technique }}&nbsp;&nbsp;</td>
+        <td>{{ technique.mistakes }}&nbsp;&nbsp;</td>
     </tr>
         {% empty %}
         <tr>
+        <td>[puste]&nbsp;&nbsp;</td>
         <td>[puste]&nbsp;&nbsp;</td>
         <td>[puste]&nbsp;&nbsp;</td>
         <td>[puste]&nbsp;&nbsp;</td>

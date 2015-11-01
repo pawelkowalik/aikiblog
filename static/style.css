@@ -250,6 +250,13 @@ padding-right: 100px;
     padding-top: 80px;
 }
 
+#post_body_news_detail
+{
+    padding-top: 110px;
+    text-indent: 20px;
+    line-height: 20px;
+}
+
 #post_body_user_detail
 {
     padding-top: 100px;
@@ -316,6 +323,13 @@ padding-right: 100px;
     text-align: center;
     color: #ffffff;
     font: 4px Verdana;
+}
+
+#table_header_cell
+{
+    text-align: left;
+    font-weight: bold;
+
 }
 #footer
 {

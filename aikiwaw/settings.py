@@ -1,5 +1,6 @@
 
 import os
+import sys
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -84,5 +85,4 @@ REGISTRATION_AUTO_LOGIN = True
 LOGIN_REDIRECT_URL = '/'  # The page you want users to arrive at after they successful log in
 LOGIN_URL = '/accounts/login/'
 
-
-
+#DEFAULT_FROM_EMAIL = 'no-reply@aikiblog.pl'
