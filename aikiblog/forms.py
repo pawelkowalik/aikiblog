@@ -2,7 +2,7 @@
 
 from django import forms
 from django.shortcuts import render, redirect
-from aikiblog.models import Training, User, TempAvatar
+from aikiblog.models import Training, User
 from PIL import Image
 
 import datetime
@@ -47,6 +47,16 @@ class AddTrainingForm(forms.ModelForm):
         if self.request.user.is_authenticated():
             self.fields['techniques'].choices = \
                 _get_techniques_by_user(self.request.user)
+
+
+class AddTechniquesForm(forms.ModelForm):
+    class Meta:
+        model = TechTren
+        fields = ['date', 'stand', 'attack', 'technique', 'mistakes']
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super(AddTechniquesForm, self).__init__(*args, **kwargs)
 
 
 class SaveUserDataForm(forms.Form):

@@ -1,16 +1,23 @@
-{%  extends "base.html" %}
+{%  extends "base_forms.html" %}
 {% block content %}
+    <a name="content"></a>
+    Dodaj informacje o swoim stażu.<br>
+    Techniki zaznaczaj z klawiszem CTRL.<br>
+    Jeśli nie dodałeś jeszcze technik z tego treningu, dodaj je za pomocą <a href="{% url "add-techniques" %}#content"><u>tego formularza!</u></a><br><br>
 <table>
 	<form method="post" class="form-horizontal" role="form">
 		{% csrf_token %}
-		<tr>
-			<td>
 				<div class="form-group">
-					{{ form }}
+                    {% for field in form %}
+                        <tr><td id="form_label">{{ field.label }}:</td>
+					        <td>{{ field }}</td>
+                            <td id="form_errors">{% for error in field.errors %}{{ error }}{% endfor %}</td>
+                        </tr>
+                    {% endfor %}
 				</div>
-			</td>
-		</tr>
+
 		<tr>
+            <td></td>
 			<td>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">

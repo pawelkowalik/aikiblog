@@ -118,9 +118,9 @@ class TechTren(models.Model):
     def __unicode__(self):
         return self.slug
 
-    def save(self):
+    def save(self, force_insert=False, force_update=False, using=None):
         self.slug = slugify(str(self.date) + " " + str(self.user)+ " " + str(self.stand) + " " + str(self.attack) + " " + str(self.technique))
-        super(TechTren, self).save()
+        super(TechTren, self).save(force_insert, force_update, using)
 
 
 class Training(models.Model):
@@ -129,7 +129,7 @@ class Training(models.Model):
         ('S','staż'),
     )
     user = models.ForeignKey(User, verbose_name='Ćwiczący', null=True, blank=True)
-    date = models.DateTimeField('Data treningu')
+    date = models.DateTimeField('Data i godzina treningu')
     place = models.ForeignKey(Dojo, verbose_name='Miejsce treningu')
     sensei = models.ForeignKey(Sensei, verbose_name='Sensei')
     slug = models.SlugField('Odnosnik', max_length=50, null=True, blank=True)
@@ -149,8 +149,3 @@ class Training(models.Model):
         dt = '{:%Y-%m-%d %H-%M}'.format(d)
         self.slug = slugify(str(self.user) + " " + str(dt) + " " + str(self.place))
         super(Training, self).save(force_insert, force_update, using)
-
-
-class TempAvatar(models.Model):
-    image_file = models.ImageField(upload_to='temp_avatars/%Y/%m/%d')
-    created_at = models.DateTimeField(auto_now_add=True)

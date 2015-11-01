@@ -38,9 +38,24 @@ a:active { color: #808080; text-decoration: dashed; background-color:transparent
 }
 
 #menu
-{
+ {
         width: 900px;
         height: 100px;
+        text-align: left;
+        text-decoration:none;
+        font-weight: bold;
+        font-family: Trebuchet MS;
+        color: #962225;
+        padding-top: 20px;
+        padding-left: 100px;
+        border-top: 1px dashed #CBCBCB;
+        clear:both;
+}
+
+#menu_2
+ {
+        width: 900px;
+        height: 50px;
         text-align: left;
         text-decoration:none;
         font-weight: bold;
@@ -62,6 +77,18 @@ padding-left: 100px;
 text-align: justify;
 color: #808080;
 }
+
+#main_2
+{
+width: 860px;
+height:auto;
+float: left;
+padding-right: 20px;
+padding-left: 100px;
+text-align: justify;
+color: #808080;
+}
+
 
 #menuright
 {
@@ -259,6 +286,36 @@ padding-right: 100px;
     float: right;
     font: 14px Verdana;
 
+}
+#comments
+{
+    height: 18px;
+    text-align: left;
+    font: 12px Verdana;
+    padding-top: 6px;
+
+}
+
+#form_label
+{
+    text-align: right;
+    font-weight: bold;
+
+}
+
+
+#form_errors
+{
+    text-align: center;
+    color: #962225;
+}
+
+
+#techniques_table_space
+{
+    text-align: center;
+    color: #ffffff;
+    font: 4px Verdana;
 }
 #footer
 {

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.views import generic
 from django.contrib.auth.models import User
-from aikiblog.models import Training, User, Dojo, News
+from aikiblog.models import Training, User, Dojo, News, TechTren
 
 
 import datetime
@@ -9,7 +9,7 @@ from django.contrib.auth import get_user_model
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect, get_object_or_404
 from annoying.decorators import render_to
-from aikiblog.forms import SaveUserDataForm, AddTrainingForm
+from aikiblog.forms import SaveUserDataForm, AddTrainingForm, AddTechniquesForm
 from django.shortcuts import render
 
 User = get_user_model()
@@ -139,6 +139,7 @@ def add_training(request):
     else:
         return render(request, 'add_training.html', {'form': form})
 
+
 @render_to('add_stage.html')
 def add_stage(request):
     form = AddTrainingForm(request.POST or None, request=request)
@@ -157,3 +158,23 @@ def add_stage(request):
         return HttpResponseRedirect('/')
     else:
         return render(request, 'add_stage.html', {'form': form})
+
+
+@render_to('add_techniques.html')
+def add_techniques(request):
+    user = request.user
+    form = AddTechniquesForm(request.POST or None, request=request)
+    techniques = TechTren.objects.filter(user=user).order_by('-date')
+    if form.is_valid():
+        technique = TechTren.objects.create(
+            date=form.cleaned_data['date'],
+            stand=form.cleaned_data['stand'],
+            attack=form.cleaned_data['attack'],
+            technique=form.cleaned_data['technique'],
+            mistakes=form.cleaned_data['mistakes'],
+            user=user
+            )
+
+        return HttpResponseRedirect('/add_techniques#content')
+    else:
+        return render(request, 'add_techniques.html', {'form': form, 'techniques': techniques})
