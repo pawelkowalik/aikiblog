@@ -5,18 +5,21 @@
 <table>
 	<form method="post" class="form-horizontal" role="form">
 		{% csrf_token %}
-
-
 				<div class="form-group">
                     {% for field in form %}
+                        {% if field.name == 'date' %}
+                        <tr><td id="form_label">{{ field.label }}:</td>
+					        <td>{{ field }}(dd.mm.rrrr)</td>
+                            <td id="form_errors">{% for error in field.errors %}{{ error }}{% endfor %}</td>
+                        </tr>
+                        {% else %}
                         <tr><td id="form_label">{{ field.label }}:</td>
 					        <td>{{ field }}</td>
                             <td id="form_errors">{% for error in field.errors %}{{ error }}{% endfor %}</td>
                         </tr>
+                        {% endif %}
                     {% endfor %}
 				</div>
-
-
 		<tr><td></td>
 			<td>
 				<div class="form-group">
