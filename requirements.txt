@@ -7,4 +7,3 @@ py==1.4.28
 pytest==2.7.1
 sorl-thumbnail==12.3
 wheel==0.24.0
-

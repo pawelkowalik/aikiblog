@@ -30,7 +30,7 @@
         </tr>
     {% for technique in object.techniques.all %}
         <tr>
-        <td>{{ technique.stand.name }} {{ technique.attack.name }} {{ technique.technique.name }}&nbsp;&nbsp;&nbsp;</td>
+        <td>{{ technique.stand.name }} {{ technique.attack.name }}&nbsp;&nbsp;&nbsp;<br> {{ technique.technique.name }}&nbsp;&nbsp;&nbsp;</td>
         <td>{{ technique.mistakes }}</td>
 
 
