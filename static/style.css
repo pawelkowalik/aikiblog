@@ -377,3 +377,9 @@ color: #349d8a;
 font-weight: normal;
 text-shadow: 1px 1px 0px white;
 }
+
+h6
+{
+font: 6px Verdana;
+color: #373737;
+}

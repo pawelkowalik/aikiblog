@@ -102,7 +102,7 @@ class TrainingDetail(generic.FormView):
                 text=form.cleaned_data['text'],
                 author=user
             )
-            return redirect(reverse('training-detail', kwargs={'slug': self.get_training().slug}))
+            return redirect(reverse('training-detail', kwargs={'slug': self.get_training().slug})+'#comments')
         else:
             return self.form_invalid(form)
 
