@@ -38,9 +38,24 @@ a:active { color: #808080; text-decoration: dashed; background-color:transparent
 }
 
 #menu
-{
+ {
         width: 900px;
         height: 100px;
+        text-align: left;
+        text-decoration:none;
+        font-weight: bold;
+        font-family: Trebuchet MS;
+        color: #962225;
+        padding-top: 20px;
+        padding-left: 100px;
+        border-top: 1px dashed #CBCBCB;
+        clear:both;
+}
+
+#menu_2
+ {
+        width: 900px;
+        height: 50px;
         text-align: left;
         text-decoration:none;
         font-weight: bold;
@@ -62,6 +77,18 @@ padding-left: 100px;
 text-align: justify;
 color: #808080;
 }
+
+#main_2
+{
+width: 860px;
+height:auto;
+float: left;
+padding-right: 20px;
+padding-left: 100px;
+text-align: justify;
+color: #808080;
+}
+
 
 #menuright
 {
@@ -96,7 +123,7 @@ padding-right: 100px;
 {
     width: 250px;
     float: right;
-    font: 15px Verdana;
+    font: 14px Verdana;
     text-align: left;
 
 }
@@ -185,7 +212,7 @@ padding-right: 100px;
 {
     width: 440px;
     float: right;
-    font: 15px Verdana;
+    font: 14px Verdana;
 
 }
 
@@ -223,6 +250,13 @@ padding-right: 100px;
     padding-top: 80px;
 }
 
+#post_body_news_detail
+{
+    padding-top: 110px;
+    text-indent: 20px;
+    line-height: 20px;
+}
+
 #post_body_user_detail
 {
     padding-top: 100px;
@@ -258,6 +292,43 @@ padding-right: 100px;
     width: 510px;
     float: right;
     font: 14px Verdana;
+
+}
+#comments
+{
+    height: 18px;
+    text-align: left;
+    font: 12px Verdana;
+    padding-top: 6px;
+
+}
+
+#form_label
+{
+    text-align: right;
+    font-weight: bold;
+
+}
+
+
+#form_errors
+{
+    text-align: center;
+    color: #962225;
+}
+
+
+#techniques_table_space
+{
+    text-align: center;
+    color: #ffffff;
+    font: 4px Verdana;
+}
+
+#table_header_cell
+{
+    text-align: left;
+    font-weight: bold;
 
 }
 #footer

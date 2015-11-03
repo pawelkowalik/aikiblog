@@ -2,7 +2,7 @@
 
 from django import forms
 from django.shortcuts import render, redirect
-from aikiblog.models import Training, User, TempAvatar
+from aikiblog.models import Training, User
 from PIL import Image
 
 import datetime
@@ -11,22 +11,12 @@ from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
 from os.path import join, dirname, realpath
 
+from django.http.response import HttpResponseRedirect
 
-class AddTrainingForm(forms.ModelForm):
-    class Meta:
-        model = Training
-        fields = ['user', 'date', 'place', 'techniques']
+from datetime import date
+from django.forms import widgets
+from aikiblog.models import Sensei, Dojo, TechTren
 
-
-def add_training(request):
-    form = AddTrainingForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-
-    return render(request, 'add_training.html', {'form': form.as_p()})
-
-
-_current_dir = dirname(realpath(__file__))
 CUR_YEAR = datetime.datetime.now().year
 START_YEAR_CHOICES = tuple(
     [(year, year) for year in range(CUR_YEAR, CUR_YEAR - 30, -1)])
@@ -38,10 +28,41 @@ SEX_CHOICES = (
 )
 
 
+def _get_techniques_by_user(user):
+    techniques = TechTren.objects.filter(user__id=user.id).order_by('-date')
+    choices = []
+    for t in techniques:
+        choices.append((t.id, t.slug))
+    return choices
+
+
+class AddTrainingForm(forms.ModelForm):
+    class Meta:
+        model = Training
+        fields = ['date', 'place', 'sensei', 'techniques', 'notes']
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super(AddTrainingForm, self).__init__(*args, **kwargs)
+        if self.request.user.is_authenticated():
+            self.fields['techniques'].choices = \
+                _get_techniques_by_user(self.request.user)
+
+
+class AddTechniquesForm(forms.ModelForm):
+    class Meta:
+        model = TechTren
+        fields = ['date', 'stand', 'attack', 'technique', 'mistakes']
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super(AddTechniquesForm, self).__init__(*args, **kwargs)
+
+
 class SaveUserDataForm(forms.Form):
     first_name = forms.CharField(initial='')
     last_name = forms.CharField(initial='')
-    start_year = forms.ChoiceField(choices=START_YEAR_CHOICES, initial=2004)
+    start_year = forms.ChoiceField(choices=START_YEAR_CHOICES, initial=2015)
     sex = forms.ChoiceField(widget=forms.RadioSelect, choices=SEX_CHOICES)
     avatar = forms.ImageField()
     about_me = forms.CharField(widget=forms.Textarea(), required=False, initial='')

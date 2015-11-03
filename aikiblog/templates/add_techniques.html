@@ -1,0 +1,67 @@
+{%  extends "base_forms.html" %}
+{% block content %}
+    Najpierw dodaj techniki ze swojego treningu lub stażu:<br><br>
+    <a name="content"></a>
+<table>
+	<form method="post" class="form-horizontal" role="form">
+		{% csrf_token %}
+				<div class="form-group">
+                    {% for field in form %}
+                        {% if field.name == 'date' %}
+                        <tr><td id="form_label">{{ field.label }}:</td>
+					        <td>{{ field }}(dd.mm.rrrr)</td>
+                            <td id="form_errors">{% for error in field.errors %}{{ error }}{% endfor %}</td>
+                        </tr>
+                        {% else %}
+                        <tr><td id="form_label">{{ field.label }}:</td>
+					        <td>{{ field }}</td>
+                            <td id="form_errors">{% for error in field.errors %}{{ error }}{% endfor %}</td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+				</div>
+		<tr><td></td>
+			<td>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-default">Dodaj technikę</button><br><br> lub przejdź do dodawania<br> <a href="{% url "add-training" %}#content">TRENINGU</a>/<a href="{% url "add-stage" %}#content">STAŻU</a>
+					</div>
+				</div>
+			</td>
+		</tr>
+	</form>
+</table><br><br>
+    Twoje wszystkie techniki:<br><br>
+    <table>
+    <tr>
+        <td><b>Data</b></td>
+        <td><b>Postawa</b></td>
+        <td><b>Atak</b></td>
+        <td><b>Technika</b></td>
+        <td><b>Błędy</b></td>
+
+    </tr>
+    {% for technique in techniques %}
+
+    {% ifchanged %}
+        <tr><td id="techniques_table_space">{{ technique.date|date:" d.m.Y " }}</td></tr>
+    {% endifchanged %}
+
+    <tr>
+        <td>{{ technique.date|date:" d.m.Y " }}&nbsp;&nbsp;</td>
+        <td>{{ technique.stand }}&nbsp;&nbsp;</td>
+        <td>{{ technique.attack }}&nbsp;&nbsp;</td>
+        <td>{{ technique.technique }}&nbsp;&nbsp;</td>
+        <td>{{ technique.mistakes }}&nbsp;&nbsp;</td>
+    </tr>
+        {% empty %}
+        <tr>
+        <td>[puste]&nbsp;&nbsp;</td>
+        <td>[puste]&nbsp;&nbsp;</td>
+        <td>[puste]&nbsp;&nbsp;</td>
+        <td>[puste]&nbsp;&nbsp;</td>
+        <td>[puste]&nbsp;&nbsp;</td>
+    </tr>
+    {% endfor %}
+    </table>
+{% endblock %}

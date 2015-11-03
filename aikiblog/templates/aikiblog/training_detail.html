@@ -23,12 +23,22 @@
         </div>
         <div id="post_body_training_detail"><br>
         Sensei: {{ object.sensei }}<br><br>
+        <table>
+        <tr>
+            <td id="table_header_cell">Technika</td>
+            <td id="table_header_cell">Błędy</td>
+        </tr>
     {% for technique in object.techniques.all %}
-        Technika: <b>{{ technique.stand.name }} {{ technique.attack.name }} {{ technique.technique.name }}</b><br>
-        Popełnione błędy:<br>
-        {{ technique.mistakes }}<br><br>
+        <tr>
+        <td>{{ technique.stand.name }} {{ technique.attack.name }}&nbsp;&nbsp;&nbsp;<br> {{ technique.technique.name }}&nbsp;&nbsp;&nbsp;</td>
+        <td>{{ technique.mistakes }}</td>
+
+
+        </tr>
+
     {% endfor %}
-        Notatki:<br>
+        </table><br><br>
+        <b>Notatki:</b><br>
         {{ object.notes }}
 
         </div>

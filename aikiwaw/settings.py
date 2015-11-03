@@ -1,5 +1,6 @@
 
 import os
+import sys
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -15,6 +16,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'aikiblog',
     'registration',
     'sorl.thumbnail',
@@ -47,7 +49,7 @@ DATABASES = {
         'HOST': 'aikiblog'
     }
 }
-
+SITE_ID =1
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -83,5 +85,4 @@ REGISTRATION_AUTO_LOGIN = True
 LOGIN_REDIRECT_URL = '/'  # The page you want users to arrive at after they successful log in
 LOGIN_URL = '/accounts/login/'
 
-
-
+#DEFAULT_FROM_EMAIL = 'no-reply@aikiblog.pl'

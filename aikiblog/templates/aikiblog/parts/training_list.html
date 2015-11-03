@@ -14,7 +14,8 @@
             {% ifequal entry.type "S" %}
             stażu
             {% endifequal %}
-            <br> <a href="{% url "training-detail" entry.slug %}"> {{ entry.date|date:"d E Y" }} o {{ entry.date|date:"H:i" }} w {{ entry.place }}</a></div>
+            <br> <a href="{% url "training-detail" entry.slug %}"> {{ entry.date|date:"d E Y" }} o {{ entry.date|date:"H:i" }} w {{ entry.place }}</a>
+        <div id="comments">Komentarze(0)&nbsp;|&nbsp;Dodaj komentarz</div></div>
         <div id="post_body">
 
         </div>

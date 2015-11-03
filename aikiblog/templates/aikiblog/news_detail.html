@@ -6,9 +6,9 @@
             </div>
         <div id="post_head_news2">Dodano: {{ object.posted_date|date:"d E Y" }}
             </div>
-        <div id="post_body_news">
+        <div id="post_body_news_detail">
             <a name="content"></a>
-        {{ object.text }}<br><br>
+        <p>{{ object.text|linebreaks }}</p><br><br>
          <a href="{% url "user-detail" object.author.id %}"><img src="{{ STATIC_URL|cut:'static/' }}{{ object.author.avatar }}" height=35>
              {{ object.author.first_name }} {{ object.author.last_name }}</a> - {{ object.posted_date|date:"d E Y" }}
             o {{ object.posted_date|date:"H:i" }}
