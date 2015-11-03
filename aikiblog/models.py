@@ -149,3 +149,14 @@ class Training(models.Model):
         dt = '{:%Y-%m-%d %H-%M}'.format(d)
         self.slug = slugify(str(self.user) + " " + str(dt) + " " + str(self.place))
         super(Training, self).save(force_insert, force_update, using)
+
+
+class TrainingComment(models.Model):
+    training_id = models.ForeignKey(Training)
+    text = models.CharField(max_length=160, verbose_name='Tekst komentarza')
+    posted_date = models.DateTimeField('Data dodania', auto_now_add=True)
+    author = models.ForeignKey(User)
+
+    class Meta:
+        verbose_name = "Komentarz"
+        verbose_name_plural = "Komentarze"

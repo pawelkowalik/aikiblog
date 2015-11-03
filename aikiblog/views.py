@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
 from django.views import generic
-from django.contrib.auth.models import User
-from aikiblog.models import Training, User, Dojo, News, TechTren
-
+from aikiblog.models import Training, User, Dojo, News, TechTren, TrainingComment
 
 import datetime
+from django.http import Http404
 from django.contrib.auth import get_user_model
+from django.core.urlresolvers import reverse
 from django.http.response import HttpResponseRedirect
-from django.shortcuts import redirect, get_object_or_404
 from annoying.decorators import render_to
-from aikiblog.forms import SaveUserDataForm, AddTrainingForm, AddTechniquesForm
-from django.shortcuts import render
+from aikiblog.forms import SaveUserDataForm, AddTrainingForm, AddTechniquesForm, TrainingCommentForm
+from django.shortcuts import render, redirect
 
 User = get_user_model()
 
@@ -79,14 +78,52 @@ class DojoDetail(generic.DetailView):
         return context
 
 
-class TrainingDetail(generic.DetailView):
-    model = Training
+class TrainingDetail(generic.FormView):
+    form_class = TrainingCommentForm
+    template_name = 'aikiblog/training_detail.html'
+
+    def get_success_url(self):
+        slug = self.kwargs['slug']
+        url = reverse('training-detail', kwargs={'slug': slug})
+        return url
+
+    def get(self, request, *args, **kwargs):
+        form = self.get_form()
+        return self.render_to_response(
+            self.get_context_data(form=form))
+
+    def post(self, request, *args, **kwargs):
+        form = TrainingCommentForm(request.POST or None)
+        if form.is_valid():
+            user = request.user
+            training_comment = TrainingComment.objects.create(
+                training_id=self.get_training(),
+                posted_date=datetime.datetime.now(),
+                text=form.cleaned_data['text'],
+                author=user
+            )
+            return redirect(reverse('training-detail', kwargs={'slug': self.get_training().slug}))
+        else:
+            return self.form_invalid(form)
+
+    def form_invalid(self, form):
+        slug = self.kwargs['slug']
+        return self.render_to_response(
+            self.get_context_data(form=form, slug=slug))
 
     def get_context_data(self, **kwargs):
-        context = super(TrainingDetail, self).get_context_data(**kwargs)
-        context['all_trainings'] = Training.objects.order_by('-date')[:7]
+        kwargs = super(TrainingDetail, self).get_context_data(**kwargs)
+        kwargs.update({'training': self.get_training()})
+        kwargs['all_trainings'] = Training.objects.order_by('-date')[:7]
+        return kwargs
 
-        return context
+    def get_training(self):
+        slug = self.kwargs['slug']
+        training = Training.objects.filter(slug=slug).first()
+        if training:
+            return training
+        else:
+            raise Http404()
 
 
 class UserDetail(generic.DetailView):

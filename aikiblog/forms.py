@@ -15,7 +15,7 @@ from django.http.response import HttpResponseRedirect
 
 from datetime import date
 from django.forms import widgets
-from aikiblog.models import Sensei, Dojo, TechTren
+from aikiblog.models import TechTren, TrainingComment
 
 CUR_YEAR = datetime.datetime.now().year
 START_YEAR_CHOICES = tuple(
@@ -110,3 +110,13 @@ class SaveUserDataForm(forms.Form):
 
         user.save()
 
+
+class TrainingCommentForm(forms.ModelForm):
+
+    class Meta:
+        model = TrainingComment
+        fields = ['training_id', 'text']
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super(TrainingCommentForm, self).__init__(*args, **kwargs)
