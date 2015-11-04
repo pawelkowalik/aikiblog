@@ -58,7 +58,7 @@ class TrainingAdmin(admin.ModelAdmin):
 
 
 class TrainingCommentAdmin(admin.ModelAdmin):
-    list_display = ('training_id',)
+    list_display = ('training_id', 'text')
 
 admin.site.register(Attack, AttackAdmin)
 admin.site.register(User, CustomUserAdmin)

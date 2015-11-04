@@ -22,42 +22,39 @@
             <br> {{ training.date }} w {{ training.place }}
         </div>
         <div id="post_body_training_detail"><br>
-        Sensei: {{ training.sensei }}<br><br>
+        <p><b>Sensei:</b> {{ training.sensei }}</p>
         <table>
         <tr>
-            <td id="table_header_cell">Technika</td>
+            <td id="table_header_cell">Technika&nbsp;&nbsp;&nbsp;</td>
+            <td id="table_header_cell">&nbsp;&nbsp;&nbsp;</td>
             <td id="table_header_cell">Błędy</td>
         </tr>
     {% for technique in training.techniques.all %}
         <tr>
-        <td>{{ technique.stand.name }} {{ technique.attack.name }}&nbsp;&nbsp;&nbsp;<br> {{ technique.technique.name }}&nbsp;&nbsp;&nbsp;</td>
-        <td>{{ technique.mistakes }}</td>
-
-
+            <td valign="bottom" id="table_stand_cell">{{ technique.stand.name }}&nbsp;&nbsp;&nbsp;<br> {{ technique.attack.name }}&nbsp;&nbsp;&nbsp;</td>
+            <td valign="bottom" id="table_technique_cell">{{ technique.technique.name }}&nbsp;&nbsp;&nbsp;</td>
+            <td valign="bottom">{{ technique.mistakes }}</td>
         </tr>
-
     {% endfor %}
         </table><br><br>
-        <b>Notatki:</b><br>
+        <p><b>Notatki:</b></p>
         {{ training.notes }}
         <br><br>
         <a name="comments"></a>
-        <b>Komentarze:</b>
-
+        <p><b>Komentarze:</b></p>
         <table>
             {% for comment in training.trainingcomment_set.all %}
                 <tr>
                     <td><img src="{{ STATIC_URL|cut:'static/' }}{{ comment.author.avatar }}" height=35></td>
                     <td><b>{{ comment.author.first_name }} {{ comment.author.last_name }}</b> {{ comment.text }}<br>
                     <font size=1>{{ comment.posted_date|date:"d E Y "}} o {{ comment.posted_date|date:" H:i " }}</font></td>
-
                 </tr>
             {% empty %}
                 <tr><td></td>
                 <td>Nie dodano jeszcze komentarzy</td>
                 </tr>
-
             {% endfor %}
+        {% if request.user.is_authenticated %}
         <form method="post" class="form-horizontal" role="form">
 		{% csrf_token %}
             <tr>
@@ -65,11 +62,10 @@
                 <td>{{ form.text }}<button type="submit" class="btn btn-default">Dodaj</button><input id="id_training_id" value="{{ training.id }}" name="training_id" hidden="hidden" /></td>
             </tr>
             </form>
+        {% endif %}
         </table>
-
         </div>
     </div>
-
 {% endblock %}
 {% block menuright %}
     {% include "aikiblog/parts/menuright.html" %}

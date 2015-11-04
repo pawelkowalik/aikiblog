@@ -331,6 +331,20 @@ padding-right: 100px;
     font-weight: bold;
 
 }
+
+#table_stand_cell
+{
+    text-align: left;
+    font: 14px Verdana;
+
+}
+
+#table_technique_cell
+{
+    text-align: left;
+    font: 14px Verdana;
+
+}
 #footer
 {
         font: 14px Verdana;
