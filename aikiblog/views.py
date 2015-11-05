@@ -1,15 +1,18 @@
 # -*- coding: utf-8 -*-
-from django.views import generic
-from aikiblog.models import Training, User, Dojo, News, TechTren, TrainingComment
 
 import datetime
-from django.http import Http404
+
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
+from django.http import Http404
 from django.http.response import HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views import generic
 from annoying.decorators import render_to
-from aikiblog.forms import SaveUserDataForm, AddTrainingForm, AddTechniquesForm, TrainingCommentForm
-from django.shortcuts import render, redirect
+
+from .forms import (SaveUserDataForm, AddTrainingForm, AddTechniquesForm,
+                    TrainingCommentForm)
+from .models import Training, User, Dojo, News, TechTren, TrainingComment
 
 User = get_user_model()
 
@@ -89,8 +92,7 @@ class TrainingDetail(generic.FormView):
 
     def get(self, request, *args, **kwargs):
         form = self.get_form()
-        return self.render_to_response(
-            self.get_context_data(form=form))
+        return self.render_to_response(self.get_context_data(form=form))
 
     def post(self, request, *args, **kwargs):
         form = TrainingCommentForm(request.POST or None)
@@ -119,11 +121,8 @@ class TrainingDetail(generic.FormView):
 
     def get_training(self):
         slug = self.kwargs['slug']
-        training = Training.objects.filter(slug=slug).first()
-        if training:
-            return training
-        else:
-            raise Http404()
+        training = get_object_or_404(Training, slug=slug)
+        return training
 
 
 class UserDetail(generic.DetailView):
