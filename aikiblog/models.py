@@ -152,7 +152,7 @@ class Training(models.Model):
 
 
 class TrainingComment(models.Model):
-    training_id = models.ForeignKey(Training)
+    training = models.ForeignKey(Training)
     text = models.CharField(max_length=160, verbose_name='Tekst komentarza')
     posted_date = models.DateTimeField('Data dodania', auto_now_add=True)
     author = models.ForeignKey(User)

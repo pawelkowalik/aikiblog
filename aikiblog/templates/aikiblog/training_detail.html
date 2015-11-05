@@ -57,7 +57,7 @@
 		{% csrf_token %}
             <tr>
                 <td><img src="{{ STATIC_URL|cut:'static/' }}{{ request.user.avatar }}" height=35></td>
-                <td>{{ form.text }}<button type="submit" class="btn btn-default">Dodaj</button><input id="id_training_id" value="{{ training.id }}" name="training_id" hidden="hidden" /></td>
+                <td>{{ form.text }}<button type="submit" class="btn btn-default">Dodaj</button><input id="id_training" value="{{ training.id }}" name="training_id" hidden="hidden" /></td>
             </tr>
             </form>
         {% endif %}

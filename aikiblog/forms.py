@@ -115,7 +115,7 @@ class TrainingCommentForm(forms.ModelForm):
 
     class Meta:
         model = TrainingComment
-        fields = ['training_id', 'text']
+        fields = ['training', 'text']
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)

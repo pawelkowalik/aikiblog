@@ -97,7 +97,7 @@ class TrainingDetail(generic.FormView):
         if form.is_valid():
             user = request.user
             training_comment = TrainingComment.objects.create(
-                training_id=self.get_training(),
+                training=self.get_training(),
                 posted_date=datetime.datetime.now(),
                 text=form.cleaned_data['text'],
                 author=user
