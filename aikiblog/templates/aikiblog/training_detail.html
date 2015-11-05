@@ -25,18 +25,16 @@
         <p><b>Sensei:</b> {{ training.sensei }}</p>
         <table>
         <tr>
-            <td id="table_header_cell">Technika&nbsp;&nbsp;&nbsp;</td>
-            <td id="table_header_cell">&nbsp;&nbsp;&nbsp;</td>
+            <td width="140" id="table_header_cell">Technika&nbsp;&nbsp;&nbsp;</td>
             <td id="table_header_cell">Błędy</td>
         </tr>
     {% for technique in training.techniques.all %}
-        <tr>
-            <td valign="bottom" id="table_stand_cell">{{ technique.stand.name }}&nbsp;&nbsp;&nbsp;<br> {{ technique.attack.name }}&nbsp;&nbsp;&nbsp;</td>
-            <td valign="bottom" id="table_technique_cell">{{ technique.technique.name }}&nbsp;&nbsp;&nbsp;</td>
-            <td valign="bottom">{{ technique.mistakes }}</td>
+        <tr height="60">
+            <td valign="top" id="table_stand_cell">{{ technique.stand.name }}&nbsp;&nbsp;&nbsp;<br> {{ technique.attack.name }} {{ technique.technique.name }}&nbsp;&nbsp;&nbsp;</td>
+            <td valign="top" id="table_technique_cell">{{ technique.mistakes }}</td>
         </tr>
     {% endfor %}
-        </table><br><br>
+        </table>
         <p><b>Notatki:</b></p>
         {{ training.notes }}
         <br><br>

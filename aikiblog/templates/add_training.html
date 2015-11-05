@@ -1,5 +1,6 @@
 {%  extends "base_forms.html" %}
 {% block content %}
+    <meta http-equiv="Refresh" content="10" />
     <a name="content"></a>
     Dodaj informacje o swoim treningu.<br>
     Techniki zaznaczaj z klawiszem CTRL.<br>
@@ -35,4 +36,11 @@
 		</tr>
 	</form>
 </table>
+    <a onclick="myOpen();">techniki</a>
+
+  <script>
+    function myOpen() {
+      window.open("{% url "add-techniques" %}#content", null, "height=360, width=550, status=no, toolbar=no, menubar=no, location=no");
+    }
+  </script>
 {% endblock %}
