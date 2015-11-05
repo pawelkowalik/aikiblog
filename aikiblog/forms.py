@@ -1,21 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from django import forms
-from django.shortcuts import render, redirect
-from aikiblog.models import Training, User
-from PIL import Image
-
 import datetime
-from annoying.functions import get_object_or_None
+
+from django import forms
 from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
-from os.path import join, dirname, realpath
 
-from django.http.response import HttpResponseRedirect
-
-from datetime import date
-from django.forms import widgets
-from aikiblog.models import TechTren, TrainingComment
+from .models import TechTren, TrainingComment, Training
 
 CUR_YEAR = datetime.datetime.now().year
 START_YEAR_CHOICES = tuple(

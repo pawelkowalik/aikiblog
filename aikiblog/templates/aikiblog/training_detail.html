@@ -1,70 +1,70 @@
 {% extends "base.html" %}
 {% block content %}
-    <div id="post">
-        <div id="post_avatar">
-        <a href="{% url "user-detail" training.user.id %}"><img src="{{ STATIC_URL|cut:'static/' }}{{ training.user.avatar }}" height=100 alt="" class="center" /></a>
-        </div>
-        <div id="post_head_training_detail">
-        <br><a href="{% url "user-detail" training.user.id %}">{{ training.user.first_name }} {{ training.user.last_name }}</a>
-            {% ifequal training.user.sex "M" %}
-            był
-            {% endifequal %}
-            {% ifequal training.user.sex "K" %}
-            była
-            {% endifequal %}
-            na
-            {% ifequal training.type "T" %}
-            treningu
-            {% endifequal %}
-            {% ifequal training.type "S" %}
-            stażu
-            {% endifequal %}
-            <br> {{ training.date }} w {{ training.place }}
-        </div>
-        <div id="post_body_training_detail"><br>
-        <p><b>Sensei:</b> {{ training.sensei }}</p>
-        <table>
-        <tr>
-            <td width="140" id="table_header_cell">Technika&nbsp;&nbsp;&nbsp;</td>
-            <td id="table_header_cell">Błędy</td>
-        </tr>
-    {% for technique in training.techniques.all %}
-        <tr height="60">
-            <td valign="top" id="table_stand_cell">{{ technique.stand.name }}&nbsp;&nbsp;&nbsp;<br> {{ technique.attack.name }} {{ technique.technique.name }}&nbsp;&nbsp;&nbsp;</td>
-            <td valign="top" id="table_technique_cell">{{ technique.mistakes }}</td>
-        </tr>
-    {% endfor %}
-        </table>
-        <p><b>Notatki:</b></p>
-        {{ training.notes }}
-        <br><br>
-        <a name="comments"></a>
-        <p><b>Komentarze:</b></p>
-        <table>
-            {% for comment in training.trainingcomment_set.all %}
-                <tr>
-                    <td><img src="{{ STATIC_URL|cut:'static/' }}{{ comment.author.avatar }}" height=35></td>
-                    <td><b>{{ comment.author.first_name }} {{ comment.author.last_name }}</b> {{ comment.text }}<br>
-                    <font size=1>{{ comment.posted_date|date:"d E Y "}} o {{ comment.posted_date|date:" H:i " }}</font></td>
-                </tr>
-            {% empty %}
-                <tr><td></td>
-                <td>Nie dodano jeszcze komentarzy</td>
-                </tr>
-            {% endfor %}
-        {% if request.user.is_authenticated %}
-        <form method="post" class="form-horizontal" role="form">
-		{% csrf_token %}
-            <tr>
-                <td><img src="{{ STATIC_URL|cut:'static/' }}{{ request.user.avatar }}" height=35></td>
-                <td>{{ form.text }}<button type="submit" class="btn btn-default">Dodaj</button><input id="id_training" value="{{ training.id }}" name="training_id" hidden="hidden" /></td>
-            </tr>
-            </form>
-        {% endif %}
-        </table>
-        </div>
-    </div>
+	<div id="post">
+		<div id="post_avatar">
+		<a href="{% url "user-detail" training.user.id %}"><img src="{{ STATIC_URL|cut:'static/' }}{{ training.user.avatar }}" height=100 alt="" class="center" /></a>
+		</div>
+		<div id="post_head_training_detail">
+		<br><a href="{% url "user-detail" training.user.id %}">{{ training.user.first_name }} {{ training.user.last_name }}</a>
+			{% ifequal training.user.sex "M" %}
+			był
+			{% endifequal %}
+			{% ifequal training.user.sex "K" %}
+			była
+			{% endifequal %}
+			na
+			{% ifequal training.type "T" %}
+			treningu
+			{% endifequal %}
+			{% ifequal training.type "S" %}
+			stażu
+			{% endifequal %}
+			<br> {{ training.date }} w {{ training.place }}
+		</div>
+		<div id="post_body_training_detail"><br>
+		<p><b>Sensei:</b> {{ training.sensei }}</p>
+		<table>
+		<tr>
+			<td width="140" id="table_header_cell">Technika&nbsp;&nbsp;&nbsp;</td>
+			<td id="table_header_cell">Błędy</td>
+		</tr>
+	{% for technique in training.techniques.all %}
+		<tr height="60">
+			<td valign="top" id="table_stand_cell">{{ technique.stand.name }}&nbsp;&nbsp;&nbsp;<br> {{ technique.attack.name }} {{ technique.technique.name }}&nbsp;&nbsp;&nbsp;</td>
+			<td valign="top" id="table_technique_cell">{{ technique.mistakes }}</td>
+		</tr>
+	{% endfor %}
+		</table>
+		<p><b>Notatki:</b></p>
+		{{ training.notes }}
+		<br><br>
+		<a name="comments"></a>
+		<p><b>Komentarze:</b></p>
+		<table>
+			{% for comment in training.trainingcomment_set.all %}
+				<tr>
+					<td><img src="{{ STATIC_URL|cut:'static/' }}{{ comment.author.avatar }}" height=35></td>
+					<td><b>{{ comment.author.first_name }} {{ comment.author.last_name }}</b> {{ comment.text }}<br>
+					<font size=1>{{ comment.posted_date|date:"d E Y "}} o {{ comment.posted_date|date:" H:i " }}</font></td>
+				</tr>
+			{% empty %}
+				<tr><td></td>
+				<td>Nie dodano jeszcze komentarzy</td>
+				</tr>
+			{% endfor %}
+			{% if request.user.is_authenticated %}
+			<form method="post" class="form-horizontal" role="form">
+			{% csrf_token %}
+				<tr>
+					<td><img src="{{ STATIC_URL|cut:'static/' }}{{ request.user.avatar }}" height=35></td>
+					<td>{{ form.text }}<button type="submit" class="btn btn-default">Dodaj</button><input id="id_training" value="{{ training.id }}" name="training_id" hidden="hidden" /></td>
+				</tr>
+			</form>
+			{% endif %}
+		</table>
+		</div>
+	</div>
 {% endblock %}
 {% block menuright %}
-    {% include "aikiblog/parts/menuright.html" %}
+	{% include "aikiblog/parts/menuright.html" %}
 {% endblock %}
