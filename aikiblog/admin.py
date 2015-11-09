@@ -49,7 +49,7 @@ class TechniqueAdmin(admin.ModelAdmin):
 
 
 class TechTrenAdmin(admin.ModelAdmin):
-    list_display = ('slug', 'date', 'stand', 'attack', 'technique',)
+    list_display = ('user', 'slug', 'date', 'stand', 'attack', 'technique',)
     exclude = ('slug',)
 
 

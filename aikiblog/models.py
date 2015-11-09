@@ -118,7 +118,7 @@ class TechTren(models.Model):
         return self.slug
 
     def save(self, force_insert=False, force_update=False, using=None):
-        self.slug = slugify(str(self.date) + " " + str(self.user)+ " " + str(self.stand) + " " + str(self.attack) + " " + str(self.technique))
+        self.slug = slugify(str(self.date) + " " + str(self.stand) + " " + str(self.attack) + " " + str(self.technique))
         super(TechTren, self).save(force_insert, force_update, using)
 
 
