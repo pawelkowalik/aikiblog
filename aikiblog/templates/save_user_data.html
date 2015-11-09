@@ -1,60 +1,66 @@
-{% extends "base.html" %}
+{% extends "base_forms.html" %}
 
 {% block content %}
-
-
-			Witamy Cię na portalu AIKIBLOG.PL!<br>
-            Aby w pełni móc korzystać z serwisu, ustaw swoje podstawowe dane:<br><br>
-			<div>Login: {{ user.username}}</div>
-			<div>E-mail: {{ user.email}}</div><br>
-			<form method="post" action="/{{ user.id }}/save_user_data" enctype="multipart/form-data">
-				{% csrf_token %}
-                <div>
-					Imię:
-					{{ save_user_data_form.first_name }}
-					<span class="error">{{ save_user_data_form.first_name.errors }}</span>
-				</div>
-                <div>
-					Nazwisko:
-					{{ save_user_data_form.last_name }}
-					<span class="error">{{ save_user_data_form.last_name.errors }}</span>
-				</div>
-				<div>
-					<br>Wpisz od kiedy trenujesz aikido:
-					{{ save_user_data_form.start_year }}
-					<span class="error">{{ save_user_data_form.start_year.errors }}</span>
-				</div>
-				<div>
-					<br>Wybierz płeć:
-					<div class="checkbox">
-						<div class="sex">
-							<label class="col-sm-2">
-								<input type="radio" name="sex" id="id_sex_0" value="K" {% if selected_sex == 'K' %}checked{% endif %}> Aikidoczka
-							</label>
-
-						</div>
-						<div class="sex">
-							<label class="col-sm-2">
-								<input type="radio" name="sex" id="id_sex_1" value="M" {% if selected_sex == 'M' %}checked{% endif %}> Aikidoka
-							</label>
-
-						</div>
-						<span class="error">{{ save_user_data_form.sex.errors }}</span>
+Witamy Cię na portalu AIKIBLOG.PL!<br>
+Aby w pełni móc korzystać z serwisu, ustaw swoje podstawowe dane:<br><br>
+	<table>
+	<tr>
+		<td id="form_label">Login:</td>
+		<td>{{ user.username}}</td>
+	</tr>
+	<tr>
+		<td id="form_label">E-mail:</td>
+		<td>{{ user.email}}</td>
+	</tr>
+	<form method="post" action="/{{ user.id }}/save_user_data" enctype="multipart/form-data">
+	{% csrf_token %}
+		<tr>
+			<td id="form_label">Imię:</td>
+			<td>{{ save_user_data_form.first_name }}</td>
+			<td id="form_errors">{{ save_user_data_form.first_name.errors }}</td>
+		</tr>
+		<tr>
+			<td id="form_label">Nazwisko:</td>
+			<td>{{ save_user_data_form.last_name }}</td>
+			<td id="form_errors">{{ save_user_data_form.last_name.errors }}</td>
+		</tr>
+		<tr>
+			<td id="form_label">Od kiedy trenujesz aikido:</td>
+			<td>{{ save_user_data_form.start_year }}</td>
+			<td id="form_errors">{{ save_user_data_form.start_year.errors }}</td>
+		</tr>
+		<tr>
+			<td id="form_label">Wybierz płeć:</td>
+			<td>
+				<div class="checkbox">
+					<div class="sex">
+						<label class="col-sm-2">
+							<input type="radio" name="sex" id="id_sex_0" value="K" {% if selected_sex == 'K' %}checked{% endif %}> Aikidoczka
+						</label>
+					</div>
+					<div class="sex">
+						<label class="col-sm-2">
+							<input type="radio" name="sex" id="id_sex_1" value="M" {% if selected_sex == 'M' %}checked{% endif %}> Aikidoka
+						</label>
 					</div>
 				</div>
-				<div>
-					<br>Możesz zmienić avatar domyślny klikając tu:<br>{{ save_user_data_form.avatar }}
-					<div>
-						<span class="js-new-avatar-error error"></span>
-					</div>
-                </div>
-				<div>
-					<br>Możesz wpisać kilka słów o sobie:<br>
-					<div>
-						{{ save_user_data_form.about_me }}
-					</div>
-				</div>
-				<button type="submit" class="btn btn-primary">Zapisz</button>
-			</form>
-
+			</td>
+			<td id="form_errors">{{ save_user_data_form.sex.errors }}</td>
+		</tr>
+		<tr>
+			<td id="form_label">Ustaw Avatar:</td>
+			<td>{{ save_user_data_form.avatar }}</td>
+			<td id="form_errors">{{ save_user_data_form.avatar.errors }}</td>
+		</tr>
+		<tr>
+			<td id="form_label">Napisz coś o sobie:</td>
+			<td>{{ save_user_data_form.about_me }}</td>
+			<td id="form_errors">{{ save_user_data_form.about_me.errors }}</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><button type="submit" class="btn btn-primary">Zapisz</button></td>
+		</tr>
+	</form>
+	</table>
 {% endblock %}

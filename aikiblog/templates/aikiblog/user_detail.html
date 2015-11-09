@@ -1,38 +1,37 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div id="post_avatar">
-        <img src="{{ STATIC_URL|cut:'static/' }}{{ user.avatar }}" height=100/>
-    </div>
-    <div id="post_head_user_detail">
-        {{ user.first_name }} {{ user.last_name }}<br>
-        Trenuje od: {{ user.start_year }}<br>
-        {{ user.about_text }}<br>
-    </div>
-
-    <div id="post_body_user_detail"><br>
-        Moje wpisy:<br><br>
-        {% for entry in all_user_trainings %}
-            {% ifequal user.id entry.user.id %}
-            <div id="post_body_avatar">
-                <img src="{{ STATIC_URL|cut:'static/' }}{{ entry.user.avatar }}" height=40/>
-            </div>
-            <div id="post_body_entry">
-                {{ entry.date }}<br>
-                <a href="{% url "training-detail" entry.slug %}">
-                {% ifequal entry.type "T" %}
-                trening
-                {% endifequal %}
-                {% ifequal entry.type "S" %}
-                staż
-                {% endifequal %}
-                w {{ entry.place }}</a>
-            </div><br><br><br>
-            {% endifequal %}
-        {% endfor %}
-    </div>
+	<div id="post_avatar">
+		<img src="{{ STATIC_URL|cut:'static/' }}{{ user.avatar }}" height=100/>
+	</div>
+	<div id="post_head_user_detail">
+		{{ user.first_name }} {{ user.last_name }}<br>
+		Trenuje od: {{ user.start_year }}<br>
+		{{ user.about_text }}<br>
+	</div>
+	<div id="post_body_user_detail"><br>
+		Moje wpisy:<br><br>
+		{% for entry in all_user_trainings %}
+			{% ifequal user.id entry.user.id %}
+			<div id="post_body_avatar">
+				<img src="{{ STATIC_URL|cut:'static/' }}{{ entry.user.avatar }}" height=40/>
+			</div>
+			<div id="post_body_entry">
+				{{ entry.date }}<br>
+				<a href="{% url "training-detail" entry.slug %}">
+				{% ifequal entry.type "T" %}
+				trening
+				{% endifequal %}
+				{% ifequal entry.type "S" %}
+				staż
+				{% endifequal %}
+				w {{ entry.place }}</a>
+			</div><br><br><br>
+			{% endifequal %}
+		{% endfor %}
+	</div>
 {% endblock %}
 
 {% block menuright %}
-    {% include "aikiblog/parts/menuright.html" %}
+	{% include "aikiblog/parts/menuright.html" %}
 {% endblock %}

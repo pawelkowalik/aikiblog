@@ -2,37 +2,35 @@
 
 {% block content %}
 
-    <div id="post_head_dojo_detail">
-        {{ object.name }}<br>
-    </div>
-    <div id="post_head_dojo_detail2"><br>
-        {{ object.city }} - {{ object.adress }}<br>
-        Rok założenia: {{ object.start_year }}<br>
-        Sensei: {{ object.sensei }}
-        <br><br>
-    </div>
-    <div id="post_body_dojo_detail"><br>
-        Treningi:<br>{{ object.trainings }}<br><br>
-        Historia dojo:<br>{{ object.story }}<br><br><br>
-        Byli tutaj:<br><br>
-        {% for entry in object.users.all %}
-            <div id="post_body_avatar">
-                <a href="{% url "user-detail" entry.id %}"><img src="{{ STATIC_URL|cut:'static/' }}{{ entry.avatar }}" height=40/></a>
-            </div>
-            <div id="post_body_entry">
-                <a href="{% url "user-detail" entry.id %}">{{ entry.first_name }} {{ entry.last_name }}</a><br>
-
-            </div><br><br><br>
-        {% endfor %}
-    </div>
-    <div id="post_body_dojo_detail_images"><br>
-        <img src="{{ STATIC_URL|cut:'static/' }}{{ object.image1 }}" width=570 alt="" class="left" /><br>
-        <img src="{{ STATIC_URL|cut:'static/' }}{{ object.image2 }}" width=283 alt="" class="left" />
-        <img src="{{ STATIC_URL|cut:'static/' }}{{ object.image3 }}" width=283 alt="" class="left" />
-
-    </div>
+	<div id="post_head_dojo_detail">
+		{{ object.name }}<br>
+	</div>
+	<div id="post_head_dojo_detail2"><br>
+		{{ object.city }} - {{ object.adress }}<br>
+		Rok założenia: {{ object.start_year }}<br>
+		Sensei: {{ object.sensei }}
+		<br><br>
+	</div>
+	<div id="post_body_dojo_detail"><br>
+		Treningi:<br>{{ object.trainings }}<br><br>
+		Historia dojo:<br>{{ object.story }}<br><br><br>
+		Byli tutaj:<br><br>
+		{% for entry in object.users.all %}
+			<div id="post_body_avatar">
+				<a href="{% url "user-detail" entry.id %}"><img src="{{ STATIC_URL|cut:'static/' }}{{ entry.avatar }}" height=40/></a>
+			</div>
+			<div id="post_body_entry">
+				<a href="{% url "user-detail" entry.id %}">{{ entry.first_name }} {{ entry.last_name }}</a><br>
+			</div><br><br><br>
+		{% endfor %}
+	</div>
+	<div id="post_body_dojo_detail_images"><br>
+		<img src="{{ STATIC_URL|cut:'static/' }}{{ object.image1 }}" width=570 alt="" class="left" /><br>
+		<img src="{{ STATIC_URL|cut:'static/' }}{{ object.image2 }}" width=283 alt="" class="left" />
+		<img src="{{ STATIC_URL|cut:'static/' }}{{ object.image3 }}" width=283 alt="" class="left" />
+	</div>
 {% endblock %}
 
 {% block menuright %}
-    {% include "aikiblog/parts/menuright.html" %}
+	{% include "aikiblog/parts/menuright.html" %}
 {% endblock %}

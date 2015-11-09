@@ -2,32 +2,33 @@
 {% block content %}
 
 {% for entry in news_list %}
-<div id="post">
-    <div id="post_avatar_news"><img src="{{ STATIC_URL|cut:'static/' }}{{ entry.image }}" width=150 alt="" class="center" /></a></div>
-        <div id="post_head_news"><a href="{% url "news-detail" entry.slug %}">{{ entry.title }}</a>
-            </div>
-        <div id="post_head_news2">Dodano: {{ entry.posted_date|date:"d E Y" }}
-            </div>
-        <div id="post_body_news">
-        {{ entry.text|truncatewords:100 }}<a href="{% url "news-detail" entry.slug %}#content"> [czytaj dalej]</a><br><br>
-         <a href="{% url "user-detail" entry.author.id %}"><img src="{{ STATIC_URL|cut:'static/' }}{{ entry.author.avatar }}" height=35>
-             {{ entry.author.first_name }} {{ entry.author.last_name }}</a> - {{ entry.posted_date|date:"d E Y" }}
-            o {{ entry.posted_date|date:"H:i" }}
-        </div>
-</div>
-<hr>
+	<div id="post">
+		<div id="post_avatar_news"><img src="{{ STATIC_URL|cut:'static/' }}{{ entry.image }}" width=150 alt="" class="center" />
+		</div>
+		<div id="post_head_news"><a href="{% url "news-detail" entry.slug %}">{{ entry.title }}</a>
+		</div>
+		<div id="post_head_news2">Dodano: {{ entry.posted_date|date:"d E Y" }}
+		</div>
+		<div id="post_body_news">
+			{{ entry.text|truncatewords:100 }}<a href="{% url "news-detail" entry.slug %}#content"> [czytaj dalej]</a><br><br>
+			<a href="{% url "user-detail" entry.author.id %}"><img src="{{ STATIC_URL|cut:'static/' }}{{ entry.author.avatar }}" height=35>
+			{{ entry.author.first_name }} {{ entry.author.last_name }}</a> - {{ entry.posted_date|date:"d E Y" }}
+			o {{ entry.posted_date|date:"H:i" }}
+		</div>
+	</div>
+	<hr>
 {% endfor  %}
-    <div>
-        {% if is_paginated %}
-   			 {% if page_obj.has_next %}
-                 <p align="right"><a align="right" href="{% url "news-list" page_obj.next_page_number %}">starsze--></a></p>
+	<div>
+		{% if is_paginated %}
+			{% if page_obj.has_next %}
+				<p align="right"><a align="right" href="{% url "news-list" page_obj.next_page_number %}">starsze--></a></p>
 			{% endif %}
-		    {% if page_obj.has_previous %}
-        		<p align="left"><a href="{% url "news-list" page_obj.previous_page_number %}"><--nowsze</a></p>
-            {% endif %}
+			{% if page_obj.has_previous %}
+				<p align="left"><a href="{% url "news-list" page_obj.previous_page_number %}"><--nowsze</a></p>
+			{% endif %}
 		{% endif %}
-    </div>
+	</div>
 {% endblock %}
 {% block menuright %}
-    {% include "aikiblog/parts/menuright.html" %}
+	{% include "aikiblog/parts/menuright.html" %}
 {% endblock %}

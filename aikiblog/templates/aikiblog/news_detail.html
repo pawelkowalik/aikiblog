@@ -1,21 +1,25 @@
 {% extends "base.html" %}
 {% block content %}
-    <div id="post">
-    <div id="post_avatar_news"><img src="{{ STATIC_URL|cut:'static/' }}{{ object.image }}" width=150 alt="" class="center" /></a></div>
-        <div id="post_head_news">{{ object.title }}
-            </div>
-        <div id="post_head_news2">Dodano: {{ object.posted_date|date:"d E Y" }}
-            </div>
-        <div id="post_body_news_detail">
-            <a name="content"></a>
-        <p>{{ object.text|linebreaks }}</p><br><br>
-         <a href="{% url "user-detail" object.author.id %}"><img src="{{ STATIC_URL|cut:'static/' }}{{ object.author.avatar }}" height=35>
-             {{ object.author.first_name }} {{ object.author.last_name }}</a> - {{ object.posted_date|date:"d E Y" }}
-            o {{ object.posted_date|date:"H:i" }}
+	<div id="post">
+		<div id="post_avatar_news">
+			<img src="{{ STATIC_URL|cut:'static/' }}{{ object.image }}" width=150 alt="" class="center" />
+		</div>
+        <div id="post_head_news">
+			{{ object.title }}
+		</div>
+        <div id="post_head_news2">
+			Dodano: {{ object.posted_date|date:"d E Y" }}
+		</div>
+		<div id="post_body_news_detail">
+			<a name="content"></a>
+			<p>{{ object.text|linebreaks }}</p><br><br>
+			<a href="{% url "user-detail" object.author.id %}"><img src="{{ STATIC_URL|cut:'static/' }}{{ object.author.avatar }}" height=35>
+			{{ object.author.first_name }} {{ object.author.last_name }}</a> - {{ object.posted_date|date:"d E Y" }}
+			o {{ object.posted_date|date:"H:i" }}
         </div>
 </div>
 
 {% endblock %}
 {% block menuright %}
-    {% include "aikiblog/parts/menuright.html" %}
+	{% include "aikiblog/parts/menuright.html" %}
 {% endblock %}

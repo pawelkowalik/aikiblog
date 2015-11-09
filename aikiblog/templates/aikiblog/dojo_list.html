@@ -3,31 +3,30 @@
 
 {% for entry in dojo_list %}
 <div id="post">
-    <div id="post_avatar"><img src="{{ STATIC_URL|cut:'static/' }}{{ entry.image1 }}" width=70 alt="" class="center" /></a></div>
-        <div id="post_head_dojo"><a href="{% url "dojo-detail" entry.slug %}">{{ entry.name }}</a>
-            </div>
-        <div id="post_head_dojo2">{{ entry.city }}
-            </div>
-        <div id="post_body">
-
-        </div>
+	<div id="post_avatar">
+		<img src="{{ STATIC_URL|cut:'static/' }}{{ entry.image1 }}" width=70 alt="" class="center" />
+	</div>
+	<div id="post_head_dojo">
+		<a href="{% url "dojo-detail" entry.slug %}">{{ entry.name }}</a>
+	</div>
+	<div id="post_head_dojo2">
+		{{ entry.city }}
+	</div>
+	<div id="post_body">
+	</div>
 </div>
-
-
-
-
 {% endfor  %}
-    <div>
-        {% if is_paginated %}
-   			 {% if page_obj.has_next %}
-                 <p align="right"><a align="right" href="{% url "dojo-list" page_obj.next_page_number %}">starsze--></a></p>
+	<div>
+		{% if is_paginated %}
+			{% if page_obj.has_next %}
+				<p align="right"><a align="right" href="{% url "dojo-list" page_obj.next_page_number %}">starsze--></a></p>
 			{% endif %}
-		    {% if page_obj.has_previous %}
-        		<p align="left"><a href="{% url "dojo-list" page_obj.previous_page_number %}"><--nowsze</a></p>
-            {% endif %}
+			{% if page_obj.has_previous %}
+				<p align="left"><a href="{% url "dojo-list" page_obj.previous_page_number %}"><--nowsze</a></p>
+			{% endif %}
 		{% endif %}
-    </div>
+	</div>
 {% endblock %}
 {% block menuright %}
-    {% include "aikiblog/parts/menuright.html" %}
+	{% include "aikiblog/parts/menuright.html" %}
 {% endblock %}

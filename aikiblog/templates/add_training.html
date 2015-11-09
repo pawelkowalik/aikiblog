@@ -1,31 +1,31 @@
 {%  extends "base_forms.html" %}
 {% block content %}
-    <meta http-equiv="Refresh" content="10" />
-    <a name="content"></a>
-    Dodaj informacje o swoim treningu.<br>
-    Techniki zaznaczaj z klawiszem CTRL.<br>
-    Jeśli nie dodałeś jeszcze technik z tego treningu, dodaj je za pomocą <a href="{% url "add-techniques" %}#content"><u>tego formularza!</u></a><br><br>
+	<meta http-equiv="Refresh" content="10" />
+	<a name="content"></a>
+	Dodaj informacje o swoim treningu.<br>
+	Techniki zaznaczaj z klawiszem CTRL.<br>
+	Jeśli nie dodałeś jeszcze technik z tego treningu, dodaj je za pomocą <a href="{% url "add-techniques" %}#content"><u>tego formularza!</u></a><br><br>
 <table>
 	<form method="post" class="form-horizontal" role="form">
 		{% csrf_token %}
 		<div class="form-group">
-                    {% for field in form %}
-                        {% if field.name == 'date' %}
-                        <tr><td id="form_label">{{ field.label }}:</td>
-					        <td>{{ field }}(dd.mm.rrrr gg:mm)</td>
-                            <td id="form_errors">{% for error in field.errors %}{{ error }}{% endfor %}</td>
-                        </tr>
-                        {% else %}
-                        <tr><td id="form_label">{{ field.label }}:</td>
-					        <td>{{ field }}</td>
-                            <td id="form_errors">{% for error in field.errors %}{{ error }}{% endfor %}</td>
-                        </tr>
-                        {% endif %}
-                    {% endfor %}
-				</div>
-
+			{% for field in form %}
+				{% if field.name == 'date' %}
+					<tr><td id="form_label">{{ field.label }}:</td>
+						<td>{{ field }}(dd.mm.rrrr gg:mm)</td>
+						<td id="form_errors">{% for error in field.errors %}{{ error }}{% endfor %}</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td id="form_label">{{ field.label }}:</td>
+						<td>{{ field }}</td>
+						<td id="form_errors">{% for error in field.errors %}{{ error }}{% endfor %}</td>
+					</tr>
+				{% endif %}
+			{% endfor %}
+		</div>
 		<tr>
-            <td></td>
+			<td></td>
 			<td>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
@@ -36,11 +36,10 @@
 		</tr>
 	</form>
 </table>
-    <a onclick="myOpen();">techniki</a>
-
-  <script>
-    function myOpen() {
-      window.open("{% url "add-techniques" %}#content", null, "height=360, width=550, status=no, toolbar=no, menubar=no, location=no");
-    }
-  </script>
+	<a onclick="myOpen();">techniki</a>
+	<script>
+	function myOpen() {
+		window.open("{% url "add-techniques" %}#content", null, "height=360, width=550, status=no, toolbar=no, menubar=no, location=no");
+	}
+	</script>
 {% endblock %}
