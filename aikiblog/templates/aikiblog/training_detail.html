@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
+	<a name="content"></a>
 	<div id="post">
 		<div id="post_avatar">
 		<a href="{% url "user-detail" training.user.id %}"><img src="{{ STATIC_URL|cut:'static/' }}{{ training.user.avatar }}" height=100 alt="" class="center" /></a>
 		</div>
 		<div id="post_head_training_detail">
-		<br><a href="{% url "user-detail" training.user.id %}">{{ training.user.first_name }} {{ training.user.last_name }}</a>
+		<br><a href="{% url "user-detail" training.user.id %}#content">{{ training.user.first_name }} {{ training.user.last_name }}</a>
 			{% ifequal training.user.sex "M" %}
 			był
 			{% endifequal %}

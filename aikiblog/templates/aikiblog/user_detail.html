@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+	<a name="content"></a>
 	<div id="post_avatar">
 		<img src="{{ STATIC_URL|cut:'static/' }}{{ user.avatar }}" height=100/>
 	</div>
@@ -18,7 +19,7 @@
 			</div>
 			<div id="post_body_entry">
 				{{ entry.date }}<br>
-				<a href="{% url "training-detail" entry.slug %}">
+				<a href="{% url "training-detail" entry.slug %}#content">
 				{% ifequal entry.type "T" %}
 				trening
 				{% endifequal %}

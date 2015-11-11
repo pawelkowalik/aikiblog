@@ -1,6 +1,6 @@
 <div id="post">
-	<div id="post_avatar"><a href="{% url "user-detail" entry.user.id %}"><img src="{{ STATIC_URL|cut:'static/' }}{{ entry.user.avatar }}" height=70 alt="" class="center" /></a></div>
-		<div id="post_head"><a href="{% url "user-detail" entry.user.id %}">{{ entry.user.first_name }} {{ entry.user.last_name }}</a>
+	<div id="post_avatar"><a href="{% url "user-detail" entry.user.id %}#content"><img src="{{ STATIC_URL|cut:'static/' }}{{ entry.user.avatar }}" height=70 alt="" class="center" /></a></div>
+		<div id="post_head"><a href="{% url "user-detail" entry.user.id %}#content">{{ entry.user.first_name }} {{ entry.user.last_name }}</a>
 			{% ifequal entry.user.sex "M" %}
 			był
 			{% endifequal %}
@@ -14,7 +14,7 @@
 			{% ifequal entry.type "S" %}
 			stażu
 			{% endifequal %}
-			<br> <a href="{% url "training-detail" entry.slug %}"> {{ entry.date|date:"d E Y" }} o {{ entry.date|date:"H:i" }} w {{ entry.place }}</a>
+			<br> <a href="{% url "training-detail" entry.slug %}#content"> {{ entry.date|date:"d E Y" }} o {{ entry.date|date:"H:i" }} w {{ entry.place }}</a>
 			<div id="comments"><a href="{% url "training-detail" entry.slug %}#comments">Komentarze({{ entry.trainingcomment_set.all.count }})</a>
 				{% if request.user.is_authenticated %}|&nbsp;<a href="{% url "training-detail" entry.slug %}#comments">Dodaj komentarz</a>
 					{% endif %}

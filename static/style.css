@@ -10,10 +10,10 @@ html, body
 }
 
 
-a:link { color: #808080; text-decoration: none; background-color: transparent;}
-a:visited { color: #808080; text-decoration: none; background-color: transparent }
+a:link { color: #515151; text-decoration: none; background-color: transparent;}
+a:visited { color: #515151; text-decoration: none; background-color: transparent }
 a:hover { color: #373737; text-decoration: none; background-color: transparent;}
-a:active { color: #808080; text-decoration: dashed; background-color:transparent }
+a:active { color: #515151; text-decoration: dashed; background-color:transparent }
 
 #top
 {
@@ -344,6 +344,76 @@ padding-right: 100px;
     text-align: left;
     font: 12px Verdana;
 
+}
+
+#table_month_row
+{
+    text-align: left;
+    font: 12px Georgia;
+}
+
+#table_month_cell
+{
+    text-align: left;
+    font: 12px Georgia;
+    color: #616161;
+    border: groove;
+    height: 80px;
+    width: 120px;
+}
+
+#table_month_cell_current
+{
+    text-align: left;
+    font: 12px Georgia;
+    color: black;
+    border: groove;
+    background-color: rgba(255, 139, 70, 0.29);
+}
+
+#table_month_cell
+{
+    text-align: left;
+    font: 12px Georgia;
+    color: #616161;
+    border: solid;
+    height: 80px;
+    width: 120px;
+}
+
+#table_month_cell_current
+{
+    text-align: left;
+    font: 12px Georgia;
+    color: #616161;
+    border: solid;
+    background-color: rgba(255, 139, 70, 0.29);
+}
+#table_month_cell_training
+{
+    text-align: left;
+    font: 12px Georgia;
+    color: black;
+    border: groove;
+    background-color: rgba(221, 221, 221, 0.47);
+}
+#table_year_cell
+{
+    text-align: left;
+    font: 12px Georgia;
+    color: #616161;
+    border: solid;
+    height: 40px;
+    width: 120px;
+}
+
+#table_year_cell_current
+{
+    text-align: left;
+    font: 12px Georgia;
+    color: black;
+    border: solid;
+    background-color: rgba(255, 139, 70, 0.29);
 }
 #footer
 {

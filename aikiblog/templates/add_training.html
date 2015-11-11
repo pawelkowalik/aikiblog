@@ -1,10 +1,10 @@
 {%  extends "base_forms.html" %}
 {% block content %}
-	<meta http-equiv="Refresh" content="10" />
+	<meta http-equiv="Refresh" content="60" />
 	<a name="content"></a>
 	Dodaj informacje o swoim treningu.<br>
 	Techniki zaznaczaj z klawiszem CTRL.<br>
-	Jeśli nie dodałeś jeszcze technik z tego treningu, dodaj je za pomocą <a href="{% url "add-techniques" %}#content"><u>tego formularza!</u></a><br><br>
+	Jeśli nie dodałeś jeszcze technik z tego treningu, dodaj je za pomocą <a href="{% url "add-techniques" %}#content"><u>tego formularza!</u></a>,<br> lub kliknij znak + obok okna wyboru technik<br><br>
 <table>
 	<form method="post" class="form-horizontal" role="form">
 		{% csrf_token %}
@@ -14,6 +14,15 @@
 					<tr><td id="form_label">{{ field.label }}:</td>
 						<td>{{ field }}(dd.mm.rrrr gg:mm)</td>
 						<td id="form_errors">{% for error in field.errors %}{{ error }}{% endfor %}</td>
+					</tr>
+				{% elif field.name == 'techniques' %}
+					<tr><td id="form_label">{{ field.label }}:</td>
+						<td valign="top">{{ field }}<td><a onclick="myOpen();" onmouseover=" " style="cursor: pointer;"><b><font size="6">+</font></b></a></td></td>
+						<td id="form_errors">{% for error in field.errors %}{{ error }}{% endfor %}</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><a onclick="window.location.reload()" target="_blank" onmouseover=" " style="cursor: pointer;">Odśwież bazę</a></td>
 					</tr>
 				{% else %}
 					<tr>
@@ -36,7 +45,6 @@
 		</tr>
 	</form>
 </table>
-	<a onclick="myOpen();">techniki</a>
 	<script>
 	function myOpen() {
 		window.open("{% url "add-techniques" %}#content", null, "height=360, width=550, status=no, toolbar=no, menubar=no, location=no");

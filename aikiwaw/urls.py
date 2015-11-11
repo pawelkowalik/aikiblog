@@ -22,7 +22,11 @@ urlpatterns = patterns('',
         url(r'^add_techniques/$', 'aikiblog.views.add_techniques', name='add-techniques'),
         url(r'^add_training/$', 'aikiblog.views.add_training', name='add-training'),
         url(r'^add_stage/$', 'aikiblog.views.add_stage', name='add-stage'),
-
         url(r'^(?P<user_id>[\d]+)/save_user_data', 'aikiblog.views.save_user_data', name='save_user_data'),
+        url(r'^calendar/(\d+)/$', 'aikiblog.views.calendar', name='calendar'),
+        url(r'^calendar/$', 'aikiblog.views.calendar', name='calendar'),
+        url(r"^calendar/month/(\d+)/(\d+)/(prev|next)/$", "aikiblog.views.month", name='month'),
+        url(r"^calendar/month/(\d+)/(\d+)/$", "aikiblog.views.month", name='month'),
+        url(r"^calendar/month$", "aikiblog.views.month", name='month'),
 
 )

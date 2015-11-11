@@ -1,0 +1,49 @@
+{%  extends "base_forms.html" %}
+{% block content %}
+	<a name="calendar"></a>
+	<p>Mój kalendarz</p>
+	<a href= "{% url 'month' year month 'prev' %}#calendar">&lt;&lt; Wcześniej</a>
+	<a href= "{% url 'month' year month 'next' %}#calendar">Później &gt;&gt;</a>
+	<h4>{{ mname }} {{ year }}</h4>
+	<table>
+	<tr>
+		<td class="empty">Pn</td>
+		<td class="empty">Wt</td>
+		<td class="empty">Śr</td>
+		<td class="empty">Czw</td>
+		<td class="empty">Pt</td>
+		<td class="empty">Sob</td>
+		<td class="empty">Nd</td>
+	</tr>
+	{% for week in month_days %}
+		<tr id="table_month_row">
+		{% for day, trainings, current in week %}
+			<td valign="top" id= {% if day == 0 %}"empty"{% endif %}
+			{% if day != 0 and current %}"table_month_cell_current"{% endif %}
+			{% if day != 0 and trainings.count != 0 %}"table_month_cell_training"{% endif %}
+			{% if day != 0 and not current %}"table_month_cell"{% endif %}
+			{% if day != 0 %}
+				onMouseOver="this.bgColor='#D9D9D9';"
+				onMouseOut="this.bgColor='white';"
+			{% endif %}>
+			{% if day != 0 %}
+				<b>{{ day }}</b><br>
+				{% for training in trainings %}
+					<a href="{% url "training-detail" training.slug %}#content">
+					{% ifchanged %}
+					{% ifequal training.type "T" %}
+					trening w<br>
+					{% endifequal %}
+					{% ifequal training.type "S" %}
+					staż w<br>
+					{% endifequal %}
+					{{ training.place }}<br>{% endifchanged %}
+					{{ training.date|date:"H:i" }}<br></a>
+				{% endfor %}
+			{% endif %}
+			</td>
+		{% endfor %}
+		</tr>
+	{% endfor %}
+	</table>
+{% endblock %}

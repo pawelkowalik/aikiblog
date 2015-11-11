@@ -7,10 +7,10 @@
 	<div>
 		{% if is_paginated %}
 			{% if page_obj.has_next %}
-				<p align="right"><a align="right" href="{% url "training-list" page_obj.next_page_number %}">starsze--></a></p>
+				<p align="right"><a align="right" href="{% url "training-list" page_obj.next_page_number %}">starsze&gt;&gt;</a></p>
 			{% endif %}
 			{% if page_obj.has_previous %}
-				<p align="left"><a href="{% url "training-list" page_obj.previous_page_number %}"><--nowsze</a></p>
+				<p align="left"><a href="{% url "training-list" page_obj.previous_page_number %}">&lt;&lt;nowsze</a></p>
 			{% endif %}
 		{% endif %}
 	</div>

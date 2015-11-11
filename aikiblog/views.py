@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 
-import datetime
+from datetime import date, datetime, timedelta
+import time
+import calendar as calendar_library
 
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from django.http.response import HttpResponseRedirect
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, render_to_response
 from django.views import generic
 from annoying.decorators import render_to
 
@@ -14,6 +16,8 @@ from .forms import (SaveUserDataForm, AddTrainingForm, AddTechniquesForm,
 from .models import Training, User, Dojo, News, TechTren, TrainingComment
 
 User = get_user_model()
+mnames = "Styczeń Luty Marzec Kwiecień Maj Czerwiec Lipiec Sierpień Wrzesień Październik Listopad Grudzień"
+mnames = mnames.split()
 
 
 class DojoList(generic.ListView):
@@ -99,7 +103,7 @@ class TrainingDetail(generic.FormView):
             user = request.user
             training_comment = TrainingComment.objects.create(
                 training=self.get_training(),
-                posted_date=datetime.datetime.now(),
+                posted_date=datetime.now(),
                 text=form.cleaned_data['text'],
                 author=user
             )
@@ -175,7 +179,6 @@ def add_training(request):
         return render(request, 'add_training.html', {'form': form})
 
 
-@render_to('add_stage.html')
 def add_stage(request):
     form = AddTrainingForm(request.POST or None, request=request)
     if form.is_valid():
@@ -195,7 +198,6 @@ def add_stage(request):
         return render(request, 'add_stage.html', {'form': form})
 
 
-@render_to('add_techniques.html')
 def add_techniques(request):
     user = request.user
     form = AddTechniquesForm(request.POST or None, request=request)
@@ -213,3 +215,58 @@ def add_techniques(request):
         return HttpResponseRedirect('/add_techniques#content')
     else:
         return render(request, 'add_techniques.html', {'form': form, 'techniques': techniques})
+
+
+def calendar(request, year=None):
+    if year: year = int(year)
+    else:    year = time.localtime()[0]
+
+    nowy, nowm = time.localtime()[:2]
+    lst = []
+
+    for y in [year-2, year-1, year]:
+        mlst = []
+        for n, month in enumerate(mnames):
+            entry = current = False   # are there entry(s) for this month; current month?
+            entries = Training.objects.filter(date__year=y, date__month=n+1, user=request.user)
+
+            if entries:
+                entry = True
+            if y == nowy and n+1 == nowm:
+                current = True
+            mlst.append(dict(n=n+1, name=month, entry=entry, current=current, entries=entries))
+        lst.append((y, mlst))
+
+    return render(request, "calendar.html", {'years': lst, 'user': request.user, 'year': year})
+
+
+def month(request, year, month, change=None):
+    year, month = int(year), int(month)
+
+    if change in ("next", "prev"):
+        now, mdelta = date(year, month, 15), timedelta(days=31)
+        if change == "next":   mod = mdelta
+        elif change == "prev": mod = -mdelta
+
+        year, month = (now+mod).timetuple()[:2]
+
+    cal = calendar_library.Calendar()
+    month_days = cal.itermonthdays(year, month)
+    nyear, nmonth, nday = time.localtime()[:3]
+    lst = [[]]
+    week = 0
+
+    for day in month_days:
+        trainings = current = False
+        if day:
+            trainings = Training.objects.filter(date__year=year, date__month=month, date__day=day, user=request.user)
+            if day == nday and year == nyear and month == nmonth:
+                current = True
+
+        lst[week].append((day, trainings, current))
+        if len(lst[week]) == 7:
+            lst.append([])
+            week += 1
+
+    return render(request, "month.html", {'year': year, 'month': month, 'user': request.user,
+                        'month_days': lst, 'mname': mnames[month-1]})

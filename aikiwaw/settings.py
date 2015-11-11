@@ -1,6 +1,8 @@
 
 import os
 import sys
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -19,7 +21,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'aikiblog',
     'registration',
-    'sorl.thumbnail',
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -79,10 +81,12 @@ STATICFILES_DIRS = (
 os.path.join(BASE_DIR, 'static'),
 )
 
+
 REGISTRATION_OPEN = True
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
 LOGIN_REDIRECT_URL = '/'  # The page you want users to arrive at after they successful log in
 LOGIN_URL = '/accounts/login/'
+
 
 #DEFAULT_FROM_EMAIL = 'no-reply@aikiblog.pl'
