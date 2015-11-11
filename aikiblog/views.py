@@ -16,8 +16,7 @@ from .forms import (SaveUserDataForm, AddTrainingForm, AddTechniquesForm,
 from .models import Training, User, Dojo, News, TechTren, TrainingComment
 
 User = get_user_model()
-mnames = "Styczeń Luty Marzec Kwiecień Maj Czerwiec Lipiec Sierpień Wrzesień Październik Listopad Grudzień"
-mnames = mnames.split()
+mnames = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień']
 
 
 class DojoList(generic.ListView):
@@ -218,8 +217,10 @@ def add_techniques(request):
 
 
 def calendar(request, year=None):
-    if year: year = int(year)
-    else:    year = time.localtime()[0]
+    if year:
+        year = int(year)
+    else:
+        year = time.localtime()[0]
 
     nowy, nowm = time.localtime()[:2]
     lst = []
