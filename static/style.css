@@ -349,42 +349,23 @@ padding-right: 100px;
 #table_month_row
 {
     text-align: left;
-    font: 12px Georgia;
+    font: 12px Verdana;
 }
 
 #table_month_cell
 {
     text-align: left;
-    font: 12px Georgia;
-    color: #616161;
-    border: groove;
-    height: 80px;
-    width: 120px;
-}
-
-#table_month_cell_current
-{
-    text-align: left;
-    font: 12px Georgia;
-    color: black;
-    border: groove;
-    background-color: rgba(255, 139, 70, 0.29);
-}
-
-#table_month_cell
-{
-    text-align: left;
-    font: 12px Georgia;
+    font: 12px Verdana;
     color: #616161;
     border: solid;
     height: 80px;
-    width: 120px;
+    width: 100px;
 }
 
 #table_month_cell_current
 {
     text-align: left;
-    font: 12px Georgia;
+    font: 12px Verdana;
     color: #616161;
     border: solid;
     background-color: rgba(255, 139, 70, 0.29);
@@ -392,15 +373,15 @@ padding-right: 100px;
 #table_month_cell_training
 {
     text-align: left;
-    font: 12px Georgia;
+    font: 12px Verdana;
     color: black;
-    border: groove;
+    border: solid;
     background-color: rgba(221, 221, 221, 0.47);
 }
 #table_year_cell
 {
     text-align: left;
-    font: 12px Georgia;
+    font: 12px Verdana;
     color: #616161;
     border: solid;
     height: 40px;
@@ -410,11 +391,73 @@ padding-right: 100px;
 #table_year_cell_current
 {
     text-align: left;
-    font: 12px Georgia;
+    font: 12px Verdana;
     color: black;
     border: solid;
     background-color: rgba(255, 139, 70, 0.29);
 }
+
+#table_techniques_date_cell
+{
+    text-align: left;
+    font: 12px Verdana;
+    color: #616161;
+    height: 40px;
+    width: 70px;
+}
+
+#table_techniques_stand_cell
+{
+    text-align: left;
+    font: 12px Verdana;
+    color: #616161;
+    height: 20px;
+    width: 100px;
+}
+
+#table_techniques_attack_cell
+{
+    text-align: left;
+    font: 12px Verdana;
+    color: #616161;
+    height: 20px;
+    width: 100px;
+}
+
+#table_techniques_mistakes_cell
+{
+    text-align: left;
+    font: 12px Verdana;
+    color: #616161;
+    height: 20px;
+    width: 275px;
+}
+
+
+#pagination_left
+{
+    text-align: left;
+    font: 12px Verdana;
+    color: #616161;
+    height: 20px;
+    width: 100px;
+}
+
+#pagination_center
+{
+    height: 20px;
+    width: 280px;
+}
+
+#pagination_right
+{
+    text-align: right;
+    font: 12px Verdana;
+    color: #616161;
+    height: 20px;
+    width: 100px;
+}
+
 #footer
 {
         font: 14px Verdana;

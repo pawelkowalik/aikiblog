@@ -13,10 +13,11 @@ from annoying.decorators import render_to
 
 from .forms import (SaveUserDataForm, AddTrainingForm, AddTechniquesForm,
                     TrainingCommentForm)
-from .models import Training, User, Dojo, News, TechTren, TrainingComment
+from .models import Training, User, Dojo, News, TechTren, TrainingComment, Technique
 
 User = get_user_model()
-mnames = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień']
+mnames = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik',
+          'Listopad', 'Grudzień']
 
 
 class DojoList(generic.ListView):
@@ -71,6 +72,23 @@ class NewsList(generic.ListView):
         context['all_trainings'] = Training.objects.order_by('-date')[:7]
 
         return context
+
+
+class TechniqueList(generic.ListView):
+    model = TechTren
+    paginate_by = 20
+    context_object_name = 'techtren_list'
+
+    def get_context_data(self, **kwargs):
+        context = super(TechniqueList, self).get_context_data(**kwargs)
+        context['technique'] = Technique.objects.get(slug=self.kwargs['slug'])
+        context['all_trainings'] = Training.objects.order_by('-date')[:7]
+        return context
+
+    def get_queryset(self, **kwargs):
+        technique = Technique.objects.get(slug=self.kwargs['slug'])
+        user = self.request.user
+        return TechTren.objects.filter(technique=technique, user=user).order_by('-date')
 
 
 class DojoDetail(generic.DetailView):
