@@ -510,3 +510,17 @@ h6
 font: 6px Verdana;
 color: #373737;
 }
+
+.tiptext {
+    background:#ccc;
+    border: 1px #333 solid;
+    padding:5px;
+    width:100px;
+}
+.description {
+    display:none;
+    position:absolute;
+    border:1px solid #000;
+    width:400px;
+    height:400px;
+}

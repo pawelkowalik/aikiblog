@@ -50,7 +50,7 @@
 			<td>{{ technique.date|date:" d.m.Y " }}&nbsp;&nbsp;</td>
 			<td>{{ technique.stand }}&nbsp;&nbsp;</td>
 			<td>{{ technique.attack }}&nbsp;&nbsp;</td>
-			<td>{{ technique.technique }}&nbsp;&nbsp;</td>
+			<td><a href="{% url "technique-list" technique.technique.slug %}">{{ technique.technique }}</a>&nbsp;&nbsp;</td>
 			<td>{{ technique.mistakes }}&nbsp;&nbsp;</td>
 		</tr>
 		{% empty %}
