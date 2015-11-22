@@ -1,23 +1,22 @@
 {% extends "base.html" %}
 {% block content %}
 	<a name="content"></a>
-	<p>Twoje techniki <b>{{ technique }}</b>:</p>
+	<p>Twoje techniki <b>{{ technique.name }}</b>:</p>
 	<table>
-	<tr>
-		<td id="table_techniques_date_cell"><b>Data</b></td>
-		<td id="table_techniques_stand_cell"><b>Postawa</b></td>
-		<td id="table_techniques_attack_cell"><b>Atak</b></td>
-		<td id="table_techniques_mistakes_cell"><b>Błędy</b></td>
-	</tr>
-
-{% for entry in techtren_list %}
-	<tr>
-		<td valign="top" id="table_techniques_date_cell">{{ entry.date|date:"d b y" }}</td>
-		<td valign="top" id="table_techniques_stand_cell">{{ entry.stand }}</td>
-		<td valign="top" id="table_techniques_attack_cell">{{ entry.attack }}</td>
-		<td valign="top" id="table_techniques_mistakes_cell">{{ entry.mistakes }}</td>
+		<tr>
+			<td id="table_techniques_date_cell"><b>Data</b></td>
+			<td id="table_techniques_stand_cell"><b>Postawa</b></td>
+			<td id="table_techniques_attack_cell"><b>Atak</b></td>
+			<td id="table_techniques_mistakes_cell"><b>Błędy</b></td>
 		</tr>
-{% endfor  %}
+		{% for entry in techtren_list %}
+			<tr>
+				<td valign="top" id="table_techniques_date_cell">{{ entry.date|date:"d b y" }}</td>
+				<td valign="top" id="table_techniques_stand_cell">{{ entry.stand.name }}</td>
+				<td valign="top" id="table_techniques_attack_cell">{{ entry.attack.name }}</td>
+				<td valign="top" id="table_techniques_mistakes_cell">{{ entry.mistakes }}</td>
+			</tr>
+		{% endfor  %}
 	</table>
 	<table>
 	<tr>
@@ -33,6 +32,6 @@
 	</tr>
 	</table>
 {% endblock %}
-{% block menuright %}
-	{% include "aikiblog/parts/menuright.html" %}
+{% block menu_right %}
+	{% include "aikiblog/parts/menu_right.html" %}
 {% endblock %}

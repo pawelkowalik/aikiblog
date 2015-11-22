@@ -32,8 +32,12 @@
 	{% for technique in training.techniques.all %}
 		<tr height="60">
 			<td valign="top" id="table_stand_cell">{{ technique.stand.name }}&nbsp;&nbsp;&nbsp;<br> {{ technique.attack.name }}
-				{% if request.user.is_authenticated %}<a href="{% url "technique-list" technique.technique.slug %}">{% endif %}{{ technique.technique.name }}
-				{% if request.user.is_authenticated %}</a>{% endif %}&nbsp;&nbsp;&nbsp;</td>
+				{% if request.user.is_authenticated %}
+					<a href="{% url "technique-list" technique.technique.slug %}">{{ technique.technique.name }}</a>&nbsp;&nbsp;&nbsp;
+				{% else %}
+				{{ technique.technique.name }}&nbsp;&nbsp;&nbsp;
+				{% endif %}&nbsp;&nbsp;&nbsp;
+			</td>
 			<td valign="top" id="table_technique_cell">{{ technique.mistakes }}</td>
 		</tr>
 	{% endfor %}
@@ -68,6 +72,6 @@
 		</div>
 	</div>
 {% endblock %}
-{% block menuright %}
-	{% include "aikiblog/parts/menuright.html" %}
+{% block menu_right %}
+	{% include "aikiblog/parts/menu_right.html" %}
 {% endblock %}

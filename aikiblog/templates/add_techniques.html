@@ -42,16 +42,16 @@
 			<td><b>Technika</b></td>
 			<td><b>Błędy</b></td>
 		</tr>
-		{% for technique in techniques %}
+		{% for techtren in techtrens %}
 		{% ifchanged %}
-			<tr><td id="techniques_table_space">{{ technique.date|date:" d.m.Y " }}</td></tr>
+			<tr><td id="techniques_table_space">{{ techtren.date|date:" d.m.Y " }}</td></tr>
 		{% endifchanged %}
 		<tr>
-			<td>{{ technique.date|date:" d.m.Y " }}&nbsp;&nbsp;</td>
-			<td>{{ technique.stand }}&nbsp;&nbsp;</td>
-			<td>{{ technique.attack }}&nbsp;&nbsp;</td>
-			<td><a href="{% url "technique-list" technique.technique.slug %}">{{ technique.technique }}</a>&nbsp;&nbsp;</td>
-			<td>{{ technique.mistakes }}&nbsp;&nbsp;</td>
+			<td>{{ techtren.date|date:" d.m.Y " }}&nbsp;&nbsp;</td>
+			<td>{{ techtren.stand }}&nbsp;&nbsp;</td>
+			<td>{{ techtren.attack }}&nbsp;&nbsp;</td>
+			<td><a href="{% url "technique-list" techtren.technique.slug %}">{{ techtren.technique }}</a>&nbsp;&nbsp;</td>
+			<td>{{ techtren.mistakes }}&nbsp;&nbsp;</td>
 		</tr>
 		{% empty %}
 		<tr>

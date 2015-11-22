@@ -2,7 +2,7 @@
 		<div id="menuright_logo">
 		</div>
 		<br>
-		{% for entry in all_trainings %}
+		{% for entry in last_trainings %}
 		<div id="menuright_post">
 			<div id="menuright_avatar">
 				<a href="{% url "user-detail" entry.user.id %}#content"><img src="{{ STATIC_URL|cut:'static/' }}{{ entry.user.avatar }}" height=50/></a>

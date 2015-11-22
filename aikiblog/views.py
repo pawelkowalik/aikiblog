@@ -29,7 +29,7 @@ class DojoList(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(DojoList, self).get_context_data(**kwargs)
-        context['all_trainings'] = Training.objects.order_by('-date')[:7]
+        context['last_trainings'] = Training.objects.order_by('-date')[:7]
 
         return context
 
@@ -43,7 +43,7 @@ class StageList(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(StageList, self).get_context_data(**kwargs)
-        context['all_trainings'] = Training.objects.order_by('-date')[:7]
+        context['last_trainings'] = Training.objects.order_by('-date')[:7]
 
         return context
 
@@ -56,7 +56,7 @@ class TrainingList(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(TrainingList, self).get_context_data(**kwargs)
-        context['all_trainings'] = Training.objects.order_by('-date')[:7]
+        context['last_trainings'] = Training.objects.order_by('-date')[:7]
 
         return context
 
@@ -69,7 +69,7 @@ class NewsList(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(NewsList, self).get_context_data(**kwargs)
-        context['all_trainings'] = Training.objects.order_by('-date')[:7]
+        context['last_trainings'] = Training.objects.order_by('-date')[:7]
 
         return context
 
@@ -82,7 +82,7 @@ class TechniqueList(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super(TechniqueList, self).get_context_data(**kwargs)
         context['technique'] = Technique.objects.get(slug=self.kwargs['slug'])
-        context['all_trainings'] = Training.objects.order_by('-date')[:7]
+        context['last_trainings'] = Training.objects.order_by('-date')[:7]
         return context
 
     def get_queryset(self, **kwargs):
@@ -96,7 +96,7 @@ class DojoDetail(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(DojoDetail, self).get_context_data(**kwargs)
-        context['all_trainings'] = Training.objects.order_by('-date')[:7]
+        context['last_trainings'] = Training.objects.order_by('-date')[:7]
 
         return context
 
@@ -136,7 +136,7 @@ class TrainingDetail(generic.FormView):
     def get_context_data(self, **kwargs):
         kwargs = super(TrainingDetail, self).get_context_data(**kwargs)
         kwargs.update({'training': self.get_training()})
-        kwargs['all_trainings'] = Training.objects.order_by('-date')[:7]
+        kwargs['last_trainings'] = Training.objects.order_by('-date')[:7]
         return kwargs
 
     def get_training(self):
@@ -150,7 +150,7 @@ class UserDetail(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(UserDetail, self).get_context_data(**kwargs)
-        context['all_trainings'] = Training.objects.order_by('-date')[:7]
+        context['last_trainings'] = Training.objects.order_by('-date')[:7]
         context['all_user_trainings'] = Training.objects.order_by('-date')
 
         return context
@@ -161,7 +161,7 @@ class NewsDetail(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(NewsDetail, self).get_context_data(**kwargs)
-        context['all_trainings'] = Training.objects.order_by('-date')[:7]
+        context['last_trainings'] = Training.objects.order_by('-date')[:7]
 
         return context
 
@@ -231,7 +231,7 @@ def add_techniques(request):
 
         return HttpResponseRedirect('/add_techniques#content')
     else:
-        return render(request, 'add_techniques.html', {'form': form, 'techniques': techniques})
+        return render(request, 'add_techniques.html', {'form': form, 'techtrens': techniques})
 
 
 def calendar(request, year=None):

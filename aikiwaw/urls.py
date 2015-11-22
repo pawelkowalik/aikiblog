@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from aikiblog.views import TrainingList, StageList, TrainingDetail, UserDetail, DojoList, DojoDetail, NewsList, NewsDetail, TechniqueList, month, calendar, add_stage, add_training, add_techniques, save_user_data
+from aikiblog.views import (TrainingList, StageList, TrainingDetail, UserDetail, DojoList, DojoDetail, NewsList,
+                            NewsDetail, TechniqueList, month, calendar, add_stage, add_training, add_techniques, save_user_data)
 
 admin.autodiscover()
 

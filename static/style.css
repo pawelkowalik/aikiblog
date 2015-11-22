@@ -512,15 +512,15 @@ color: #373737;
 }
 
 .tiptext {
-    background:#ccc;
+    background: #ccc;
     border: 1px #333 solid;
-    padding:5px;
-    width:100px;
+    padding: 5px;
+    width: 100px;
 }
 .description {
-    display:none;
-    position:absolute;
-    border:1px solid #000;
-    width:400px;
-    height:400px;
+    display: none;
+    position: absolute;
+    border: 1px solid #000;
+    width: 400px;
+    height: 400px;
 }
