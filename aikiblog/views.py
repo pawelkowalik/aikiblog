@@ -81,7 +81,8 @@ class TechniqueList(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(TechniqueList, self).get_context_data(**kwargs)
-        context['technique'] = Technique.objects.get(slug=self.kwargs['slug'])
+        technique = get_object_or_404(Technique, slug=self.kwargs['slug'])
+        context['technique'] = technique
         context['last_trainings'] = Training.objects.order_by('-date')[:7]
         return context
 
