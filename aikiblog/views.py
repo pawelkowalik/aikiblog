@@ -7,7 +7,7 @@ import calendar as calendar_library
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from django.http.response import HttpResponseRedirect
-from django.shortcuts import render, redirect, get_object_or_404, render_to_response
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from annoying.decorators import render_to
 
@@ -18,6 +18,14 @@ from .models import Training, User, Dojo, News, TechTren, TrainingComment, Techn
 User = get_user_model()
 mnames = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik',
           'Listopad', 'Grudzień']
+
+
+def _get_techniques_by_user(user):
+    techniques = TechTren.objects.filter(user__id=user.id).order_by('-date')
+    choices = []
+    for t in techniques:
+        choices.append((t.id, t.slug))
+    return choices
 
 
 class DojoList(generic.ListView):
@@ -165,6 +173,24 @@ class NewsDetail(generic.DetailView):
         context['last_trainings'] = Training.objects.order_by('-date')[:7]
 
         return context
+
+
+class TrainingUpdate(generic.edit.UpdateView):
+    model = Training
+    fields = ['date', 'place', 'sensei', 'techniques', 'notes']
+    template_name_suffix = '_update'
+
+    #def __init__(self,  *args, **kwargs):
+    #    self.request = kwargs.pop('request', None)
+    #    super(TrainingUpdate, self).__init__(*args, **kwargs)
+    #    if self.request.user.is_authenticated():
+    #        self.fields['techniques'].choices = _get_techniques_by_user(self.request.user)
+
+
+class TechTrenUpdate(generic.edit.UpdateView):
+    model = TechTren
+    fields = ['date', 'stand', 'attack', 'technique', 'mistakes']
+    template_name_suffix = '_update'
 
 
 @render_to('save_user_data.html')
