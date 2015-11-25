@@ -3,6 +3,7 @@
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import AbstractUser
+from django.core.urlresolvers import reverse
 
 
 class User(AbstractUser):
@@ -119,8 +120,13 @@ class TechTren(models.Model):
         return self.slug
 
     def save(self, force_insert=False, force_update=False, using=None):
-        self.slug = slugify(str(self.date) + " " + str(self.stand) + " " + str(self.attack) + " " + str(self.technique))
+        self.slug = slugify(str(self.date) + " " + str(self.stand) + " " + str(self.attack) +
+                            " " + str(self.technique) + " " + str(self.user_id))
         super(TechTren, self).save(force_insert, force_update, using)
+
+    def get_absolute_url(self):
+        self.training = Training.objects.get(techniques=self.id)
+        return reverse('training-detail', kwargs={'slug': self.training})
 
 
 class Training(models.Model):
@@ -143,6 +149,9 @@ class Training(models.Model):
 
     def __unicode__(self):
         return self.slug
+
+    def get_absolute_url(self):
+        return reverse('training-detail', kwargs={'slug': self.slug})
 
     def save(self, force_insert=False, force_update=False, using=None):
         d = self.date

@@ -16,8 +16,12 @@
 			{% endifequal %}
 			<br> <a href="{% url "training-detail" entry.slug %}#content"> {{ entry.date|date:"d E Y" }} o {{ entry.date|date:"H:i" }} w {{ entry.place }}</a>
 			<div id="comments"><a href="{% url "training-detail" entry.slug %}#comments">Komentarze({{ entry.trainingcomment_set.all.count }})</a>
-				{% if request.user.is_authenticated %}|&nbsp;<a href="{% url "training-detail" entry.slug %}#comments">Dodaj komentarz</a>
-					{% endif %}
+				{% if request.user.is_authenticated %}
+					|&nbsp;<a href="{% url "training-detail" entry.slug %}#comments">Dodaj komentarz</a>
+				{% endif %}
+				{% ifequal entry.user request.user %}
+					|&nbsp;<a href="{% url "training-update" entry.slug %}">[edytuj]</a>
+				{% endifequal %}
 			</div>
 		</div>
 		<div id="post_body">
