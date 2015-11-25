@@ -14,6 +14,7 @@ from annoying.decorators import render_to
 from .forms import (SaveUserDataForm, AddTrainingForm, AddTechniquesForm,
                     TrainingCommentForm)
 from .models import Training, User, Dojo, News, TechTren, TrainingComment, Technique
+from .forms import UpdateTrainingForm
 
 User = get_user_model()
 mnames = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik',
@@ -177,14 +178,13 @@ class NewsDetail(generic.DetailView):
 
 class TrainingUpdate(generic.edit.UpdateView):
     model = Training
-    fields = ['date', 'place', 'sensei', 'techniques', 'notes']
     template_name_suffix = '_update'
+    form_class = UpdateTrainingForm
 
-    #def __init__(self,  *args, **kwargs):
-    #    self.request = kwargs.pop('request', None)
-    #    super(TrainingUpdate, self).__init__(*args, **kwargs)
-    #    if self.request.user.is_authenticated():
-    #        self.fields['techniques'].choices = _get_techniques_by_user(self.request.user)
+    def get_form(self, form_class):
+        form = super(TrainingUpdate, self).get_form(form_class)
+        form.fields['techniques'].choices = _get_techniques_by_user(self.request.user)
+        return form
 
 
 class TechTrenUpdate(generic.edit.UpdateView):

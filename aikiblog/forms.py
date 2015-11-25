@@ -28,10 +28,13 @@ def _get_techniques_by_user(user):
     return choices
 
 
-class AddTrainingForm(forms.ModelForm):
+class UpdateTrainingForm(forms.ModelForm):
     class Meta:
         model = Training
         fields = ['date', 'place', 'sensei', 'techniques', 'notes']
+
+
+class AddTrainingForm(UpdateTrainingForm):
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
