@@ -1,7 +1,8 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from aikiblog.views import (TrainingList, StageList, TrainingDetail, UserDetail, DojoList, DojoDetail, NewsList,
-                            NewsDetail, TechniqueList, month, calendar, add_stage, add_training, add_techniques, save_user_data)
+                            NewsDetail, TechniqueList, TrainingUpdate, TechTrenUpdate, month, calendar, add_stage,
+                            add_training, add_techniques, save_user_data)
 
 admin.autodiscover()
 
@@ -17,6 +18,8 @@ urlpatterns = patterns('',
         url(r'^stages/$', StageList.as_view(), name='stage-list'),
         url(r'^stages/(?P<page>[0-9]+)/$', StageList.as_view(), name='stage-list'),
         url(r'^training/(?P<slug>[\w\-_]+)/$', TrainingDetail.as_view(), name='training-detail'),
+        url(r'^training_update/(?P<slug>[\w\-_]+)/$', TrainingUpdate.as_view(), name='training-update'),
+        url(r'^technique_update/(?P<slug>[\w\-_]+)/$', TechTrenUpdate.as_view(), name='techtren-update'),
         url(r'^trainings/?$', TrainingList.as_view(), name='training-list'),
         url(r'^trainings/(?P<page>[0-9]+)/$', TrainingList.as_view(), name='training-list'),
         url(r'^technique/(?P<slug>[\w\-_]+)/(?P<page>[0-9]+)/$', TechniqueList.as_view(), name='technique-list'),
