@@ -1,4 +1,3 @@
-
 import os
 import sys
 
@@ -79,7 +78,9 @@ AUTH_USER_MODEL = 'aikiblog.User'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
 os.path.join(BASE_DIR, 'static'),
+'/home/pawkow/aikiblog/static/',
 )
+STATIC_ROOT = "/home/pawkow/aikiblog/static/"
 
 
 REGISTRATION_OPEN = True
