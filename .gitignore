@@ -8,6 +8,9 @@
 
 media
 *.sqlite3
+aikiwaw/**
+static/avatars/**
+static/dojo/**
 
 CACHE
 __pycache__
