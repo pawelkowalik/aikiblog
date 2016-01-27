@@ -1,0 +1,49 @@
+{%  extends "base_forms.html" %}
+{% block content %}
+	<a name="content"></a>
+	<form method="post" action="" enctype="multipart/form-data">
+	{% csrf_token %}
+			Dodaj zdjęcia ze swojego treningu z {{ training.date|date:"d E Y " }}
+		o godzinie {{ training.date|date:" H:i " }}  w {{ training.place }}:<br><br>
+			<table id="id_contact_info_table" border="0" cellpadding="0" cellspacing="5">
+				<thead>
+					<tr>
+						<th scope="col">Zdjęcie</th>
+						<th scope="col"></th>
+						<th scope="col">Opis</th>
+						<th scope="col">Usuń</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for form in formset.forms %}
+					<tr id="{{ form.prefix }}-row">
+						<td>
+							{% for fld in form.hidden_fields %}
+								{{ fld }}
+							{% endfor %}
+							{% if form.instance.pk %}
+								<img src="{{ STATIC_URL|cut:'static/' }}{{ form.instance.thumbnail }}" height="50">
+							{% endif %}
+						</td>
+						<td>{% if form.instance.pk %}
+								Zmień:<br>
+							{% endif %}
+							<input id="{{ form.prefix }}-image" name="{{ form.prefix }}-image" type="file" />
+						</td>
+						<td>
+							{{ form.description }}
+						</td>
+						<td>{% if form.instance.pk %}
+								{{ form.DELETE }}
+							{% endif %}
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<p>
+				{{ formset.management_form }}
+				<input type="submit" value="Zapisz" />
+			</p>
+	</form>
+{% endblock %}
