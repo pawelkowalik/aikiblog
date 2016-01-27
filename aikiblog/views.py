@@ -7,14 +7,15 @@ import calendar as calendar_library
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from django.http.response import HttpResponseRedirect
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, render_to_response, redirect, get_object_or_404, RequestContext
 from django.views import generic
 from annoying.decorators import render_to
 
 from .forms import (SaveUserDataForm, AddTrainingForm, AddTechniquesForm,
                     TrainingCommentForm)
-from .models import Training, User, Dojo, News, TechTren, TrainingComment, Technique
-from .forms import UpdateTrainingForm
+from .models import Training, User, Dojo, News, TechTren, TrainingComment, Technique, Image
+from .forms import UpdateTrainingForm, ImageForm, TrainingForm, get_image_formset
+from PIL import Image
 
 User = get_user_model()
 mnames = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik',
@@ -261,6 +262,24 @@ def add_techniques(request):
         return render(request, 'add_techniques.html', {'form': form, 'techtrens': techniques})
 
 
+@render_to('add_images.html')
+def add_images(request, training_id):
+    ImageFormset = get_image_formset(ImageForm, extra=5, can_delete=True, max_num=5)
+    training = Training.objects.get(id=training_id)
+    if request.method == 'POST':
+        formset = ImageFormset(request.POST, request.FILES, instance=training)
+        if formset.is_valid():
+            for form in formset:
+                print(form)
+            formset.save()
+
+            return HttpResponseRedirect('/training/'+training.slug+'/#content')
+    else:
+        formset = ImageFormset(instance=training)
+    return render_to_response('add_images.html', {'training' : training, 'formset': formset},
+        context_instance=RequestContext(request))
+
+
 def calendar(request, year=None):
     if year:
         year = int(year)
@@ -316,3 +335,4 @@ def month(request, year, month, change=None):
 
     return render(request, "month.html", {'year': year, 'month': month, 'user': request.user,
                         'month_days': lst, 'mname': mnames[month-1]})
+

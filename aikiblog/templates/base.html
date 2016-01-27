@@ -6,7 +6,8 @@
 <meta name="robots" content="ALL">
 <title>AIKI-BLOG</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}style.css"  />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}style.css">
+<link href="{% static 'lightbox/lightbox.css' %}" rel="stylesheet">
 </head>
 <body>
 <div id="top">
@@ -45,5 +46,7 @@
 			Projekt i realizacja: Paweł Kowalik<br> Wszelkie prawa zastrzeżone © AIKIBLOG 2015
 		</div>
 </div>
+</div>
+<script src="{% static 'lightbox/lightbox-plus-jquery.js' %}"></script>
 </body>
 </html>

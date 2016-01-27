@@ -53,6 +53,22 @@
 		{{ training.notes }}
 		<br><br>
 		<a name="comments"></a>
+		<p><b>Zdjęcia:</b></p>
+		{% for image in training.image_set.all %}
+			<a href="{{ STATIC_URL|cut:"static/" }}{{image.image }}" data-lightbox="image" data-title=
+			{% if image.description %}
+				"{{ image.description }}"
+			{% else %}
+				"[brak opisu]"
+			{% endif %}
+			>
+			<img src="{{ STATIC_URL|cut:"static/" }}{{image.thumbnail }}" height=60 alt="" data-lightbox="image-1" /></a>
+		{% endfor %}
+		{% ifequal request.user training.user  %}
+			&nbsp;&nbsp;<a href="{%  url 'add-images' training.id %}"><b><font size="5">+</font></b></a>
+		{% endifequal %}
+		<br><br>
+		<a name="comments"></a>
 		<p><b>Komentarze:</b></p>
 		<table>
 			{% for comment in training.trainingcomment_set.all %}
@@ -64,6 +80,9 @@
 			{% empty %}
 				<tr><td></td>
 				<td>Nie dodano jeszcze komentarzy</td>
+				</tr>
+				<tr>
+				<td>&nbsp</td>
 				</tr>
 			{% endfor %}
 			{% if request.user.is_authenticated %}

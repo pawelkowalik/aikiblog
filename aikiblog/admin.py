@@ -58,6 +58,10 @@ class TrainingAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('user', 'date', 'place')}
 
 
+class ImageAdmin(admin.ModelAdmin):
+    list_display = ('image',)
+
+
 class TrainingCommentAdmin(admin.ModelAdmin):
     list_display = ('training', 'text')
 
@@ -71,5 +75,6 @@ admin.site.register(Technique, TechniqueAdmin)
 admin.site.register(TechTren, TechTrenAdmin)
 admin.site.register(Training, TrainingAdmin)
 admin.site.register(TrainingComment, TrainingCommentAdmin)
+admin.site.register(Image, ImageAdmin)
 
 

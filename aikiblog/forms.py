@@ -3,11 +3,14 @@
 import datetime
 
 from django import forms
+from django.forms import models
 from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
-from PIL import Image
+from PIL import Image as PILImage
 
-from .models import TechTren, TrainingComment, Training
+from .models import TechTren, TrainingComment, Training, Image
+
+
 
 CUR_YEAR = datetime.datetime.now().year
 START_YEAR_CHOICES = tuple(
@@ -81,7 +84,7 @@ class SaveUserDataForm(forms.Form):
             if avatar:
                 user.avatar = SimpleUploadedFile(avatar.name, avatar.read(), content_type='image/jpeg')
                 user.save()
-                im = Image.open(str(user.avatar))
+                im = PILImage.open(str(user.avatar))
                 a = im.size[0]
                 b = im.size[1]
                 size = (300, 300)
@@ -115,3 +118,19 @@ class TrainingCommentForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
         super(TrainingCommentForm, self).__init__(*args, **kwargs)
+
+
+class TrainingForm(forms.ModelForm):
+    class Meta:
+        model = Training
+        fields = "__all__"
+
+
+class ImageForm(forms.ModelForm):
+    class Meta:
+        model = Image
+        fields = ['image', 'description']
+
+
+def get_image_formset(form, formset=models.BaseInlineFormSet, **kwargs):
+    return models.inlineformset_factory(Training, Image, form, formset, **kwargs)

@@ -12,24 +12,41 @@
 	</div>
 	<div id="post_body_user_detail"><br>
 		Moje wpisy:<br><br>
-		{% for entry in all_user_trainings %}
-			{% ifequal user.id entry.user.id %}
-			<div id="post_body_avatar">
-				<img src="{{ STATIC_URL|cut:'static/' }}{{ entry.user.avatar }}" height=40/>
-			</div>
-			<div id="post_body_entry">
-				{{ entry.date }}<br>
-				<a href="{% url "training-detail" entry.slug %}#content">
-				{% ifequal entry.type "T" %}
-				trening
-				{% endifequal %}
-				{% ifequal entry.type "S" %}
-				staż
-				{% endifequal %}
-				w {{ entry.place }}</a>
-			</div><br><br><br>
-			{% endifequal %}
+		<table>
+		{% for entry in user.training_set.all %}
+				<tr>
+					<td id="post_body_avatar">
+						<img src="{{ STATIC_URL|cut:'static/' }}{{ entry.user.avatar }}" height=40/>
+					</td>
+					<td id="post_body_entry">
+						{{ entry.date }}<br>
+						<a href="{% url "training-detail" entry.slug %}#content">
+						{% ifequal entry.type "T" %}
+						trening
+						{% endifequal %}
+						{% ifequal entry.type "S" %}
+						staż
+						{% endifequal %}
+						w {{ entry.place }}</a>
+					</td>
+					<td id="post_body_images">
+						{% for image in entry.image_set.all %}
+							<a href="{{ STATIC_URL|cut:"static/" }}{{image.image }}" data-lightbox="{{ image.training }}" data-title=
+							{% if image.description %}
+								"{{ image.description }}"
+							{% else %}
+							"[brak opisu]"
+							{% endif %}
+							>
+							<img src="{{ STATIC_URL|cut:"static/" }}{{image.thumbnail }}" height=36 alt="" data-lightbox="{{ image.training }}" /></a>
+						{% endfor %}
+						{% ifequal request.user entry.user  %}
+						<a href="{%  url 'add-images' entry.id %}"><b><font size="5">+</font></b></a>
+						{% endifequal %}
+					</td>
+				</tr>
 		{% endfor %}
+		</table>
 	</div>
 {% endblock %}
 
