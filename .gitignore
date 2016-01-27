@@ -11,6 +11,7 @@ media
 aikiwaw/**
 static/avatars/**
 static/dojo/**
+static/galleries/**
 
 CACHE
 __pycache__
