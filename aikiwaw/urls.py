@@ -1,5 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 from aikiblog.views import (TrainingList, StageList, TrainingDetail, UserDetail, DojoList, DojoDetail, NewsList,
                             NewsDetail, TechniqueList, TrainingUpdate, TechTrenUpdate, month, calendar, add_stage,
                             add_training, add_techniques, add_images, save_user_data)
@@ -37,4 +39,4 @@ urlpatterns = patterns('',
         url(r"^calendar/month/(\d+)/(\d+)/$", month, name='month'),
         url(r"^calendar/month$", month, name='month'),
 
-)
+) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
