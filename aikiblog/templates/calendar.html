@@ -2,7 +2,6 @@
 
 {% block content %}
 	<a name="calendar"></a>
-	<p>Mój kalendarz</p>
 	<a href="{% url 'calendar' year|add:"-3" %}#calendar">&lt;&lt; Wcześniej</a>
 	<a href="{% url 'calendar' year|add:"3" %}#calendar">Później&gt;&gt;</a>
 	{% for year, months in years %}
@@ -10,13 +9,17 @@
 		<table>
 			<tr>
 			{% for month in months %}
-				<td valign="top" id=
-			 		{% if month.current %}"table_year_cell_current"{% endif %}
-			 		{% if not month.current %}"table_year_cell"{% endif %} >
-			 			{% if month.entry %}<b>{% endif %}
-			 			<a href="{% url 'month' year month.n %}#calendar">{{ month.name }}</a>
-			 			{% if month.entry %}</b><br>Treningów:{{ month.entries.count }} {% endif %}
-			 	</td>
+					<td valign="top" id=
+			 			{% if month.current %}"table_year_cell_current"{% endif %}
+			 			{% if not month.current %}"table_year_cell"{% endif %} >
+						<a href="{% url 'month' year month.n %}#calendar">
+						<div id="table_year_div">
+			 				{% if month.entry %}<b>{% endif %}
+			 				{{ month.name }}
+			 				{% if month.entry %}</b><br>Treningów:{{ month.entries.count }} {% endif %}
+						</div>
+						</a>
+					</td>
 			 	{% if month.n == 6 %}</tr><tr>{% endif %}
 			{% endfor %}
 			</tr>
