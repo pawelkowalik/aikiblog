@@ -353,55 +353,98 @@ padding-right: 100px;
 
 #table_month_row
 {
-    text-align: left;
+    text-align: center;
     font: 12px Verdana;
 }
 
 #table_month_cell
 {
-    text-align: left;
-    font: 12px Verdana;
-    color: #616161;
-    border: solid;
     height: 80px;
     width: 100px;
+    color: #cbcbcb;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+    padding: 8px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid;
+    border-color: #fff #d1d1d1 #d1d1d1 #fff;
+    background: #ededed;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#efefef));
+    background: -moz-linear-gradient(top, #ffffff, #efefef);
 }
 
 #table_month_cell_current
 {
-    text-align: left;
-    font: 12px Verdana;
-    color: #616161;
-    border: solid;
-    background-color: rgba(255, 139, 70, 0.29);
+    height: 80px;
+    width: 100px;
+    color: #666;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+    padding: 8px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid;
+    border-color: #fff #bbbbbb #bbbbbb #fff;
+    background: #ededed;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(rgba(203, 4, 11, 0.24)));
+    background: -moz-linear-gradient(top, #ffffff, rgba(203, 4, 11, 0.25));
+    box-shadow: 0 0 5px 1px #962225;
 }
 #table_month_cell_training
 {
-    text-align: left;
-    font: 12px Verdana;
-    color: black;
-    border: solid;
-    background-color: rgba(221, 221, 221, 0.47);
+    height: 80px;
+    width: 100px;
+    color: #000000;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+    padding: 8px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid;
+    border-color: #fff #bbbbbb #bbbbbb #fff;
+    border-radius: 5px;
+    background: #ededed;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#bbbbbb));
+    background: -moz-linear-gradient(top, #ffffff, #bbbbbb);
+    box-shadow: 0 0 7px 1px black;
 }
 #table_year_cell
 {
-    text-align: left;
-    font: 12px Verdana;
-    color: #616161;
-    border: solid;
     height: 40px;
     width: 120px;
+    color: #cbcbcb;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+    padding: 8px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid;
+    border-radius: 5px;
+    border-color: #fff #d1d1d1 #d1d1d1 #fff;
+    background: #ededed;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#efefef));
+    background: -moz-linear-gradient(top, #ffffff, #efefef);
+    box-shadow: 0 0 5px 1px black;
 }
 
 #table_year_cell_current
 {
-    text-align: left;
-    font: 12px Verdana;
-    color: black;
-    border: solid;
-    background-color: rgba(255, 139, 70, 0.29);
+    color: #666;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+    padding: 8px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid;
+    border-radius: 5px;
+    border-color: #fff #bbbbbb #bbbbbb #fff;
+    background: #ededed;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(rgba(203, 4, 11, 0.24)));
+    background: -moz-linear-gradient(top, #ffffff, rgba(203, 4, 11, 0.25));
+    box-shadow: 0 0 3px 1px #962225;
 }
 
+#table_year_div
+{
+    height: 40px;
+    width: 120px;
+}
 #table_techniques_date_cell
 {
     text-align: left;
