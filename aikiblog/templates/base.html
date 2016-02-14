@@ -28,7 +28,11 @@
 				| &nbsp; <a href="{% url 'registration_register' %}"><font color=#962225>REJESTRACJA</font></a> &nbsp;
             {% else %}
 				| &nbsp; <a href="{% url 'auth_logout' %}?next=/"><font color=#962225>LOGOUT</font></a>&nbsp;<br><br>
-				<font size = 2px> &nbsp;&nbsp;&nbsp;&nbsp; <a href="{% url "user-detail" request.user.id %}"><img src="{{ STATIC_URL|cut:'static/' }}{{ request.user.avatar }}" height=30 alt="" class="center" /> {{ request.user.first_name|upper }} {{ request.user.last_name|upper }}</a> &nbsp;
+				<font size = 2px> &nbsp;&nbsp;&nbsp;&nbsp;
+				{% if not request.user.first_name  %}
+					<a href="{% url 'save_user_data' request.user.id %}"><font color=#962225>[USTAW SWOJE DANE]</font></a>
+				{% endif %}
+				<a href="{% url "user-detail" request.user.id %}"><img src="{{ STATIC_URL|cut:'static/' }}{{ request.user.avatar }}" height=30 alt="" class="center" /> {{ request.user.first_name|upper }} {{ request.user.last_name|upper }}</a> &nbsp;
 				| &nbsp; <a href="{% url "add-training" %}">DODAJ TRENING</a>/<a href="{% url "add-stage" %}">STAŻ</a> &nbsp;
 				|&nbsp; <a href="{% url "calendar" %}">MÓJ KALENDARZ</a>&nbsp;
 			{% endif %}

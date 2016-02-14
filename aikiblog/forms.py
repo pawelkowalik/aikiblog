@@ -8,7 +8,7 @@ from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
 from PIL import Image as PILImage
 
-from .models import TechTren, TrainingComment, Training, Image
+from .models import TechTren, TrainingComment, Training, Image, User
 
 
 
@@ -37,7 +37,16 @@ class UpdateTrainingForm(forms.ModelForm):
         fields = ['date', 'place', 'sensei', 'techniques', 'notes']
 
 
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'start_year', 'about_text', 'sex', 'avatar']
+
+
 class AddTrainingForm(UpdateTrainingForm):
+    class Meta:
+        model = Training
+        fields = ['date', 'place', 'sensei', 'techniques', 'notes']
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
@@ -66,6 +75,8 @@ class SaveUserDataForm(forms.Form):
     about_me = forms.CharField(widget=forms.Textarea(), required=False, initial='')
 
     def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+
         super(SaveUserDataForm, self).__init__(*args, **kwargs)
 
     def save(self, user_id):
@@ -85,19 +96,19 @@ class SaveUserDataForm(forms.Form):
                 user.avatar = SimpleUploadedFile(avatar.name, avatar.read(), content_type='image/jpeg')
                 user.save()
                 im = PILImage.open(str(user.avatar))
-                a = im.size[0]
-                b = im.size[1]
+                width = im.size[0]
+                height = im.size[1]
                 size = (300, 300)
-                if a > b:
-                    c = (a - b)/2
-                    d = a - c
-                    box = (c, 0, d, b)
-                elif b > a:
-                    c = (b - a)/2
-                    d = b - c
-                    box = (0, c, a, d)
+                if width > height:
+                    lcor = (width - height)/2
+                    rcor = width - lcor
+                    box = (lcor, 0, rcor, height)
+                elif height > width:
+                    lcor = (height - width)/2
+                    rcor = height - lcor
+                    box = (0, lcor, width, rcor)
                 else:
-                    box = (0, 0, a, a)
+                    box = (0, 0, width, width)
 
             region = im.crop(box)
             region.thumbnail(size)

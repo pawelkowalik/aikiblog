@@ -9,6 +9,10 @@
 		{{ user.first_name }} {{ user.last_name }}<br>
 		Trenuje od: {{ user.start_year }}<br>
 		{{ user.about_text }}<br>
+		{% ifequal request.user user  %}
+			<a href="{%  url 'user-update' user.id %}">[edytuj dane]</a><br>
+			<a href="{%  url 'change-avatar' user.id %}">[zmień avatar]</a>
+		{% endifequal %}
 	</div>
 	<div id="post_body_user_detail"><br>
 		Moje wpisy:<br><br>

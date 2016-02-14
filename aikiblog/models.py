@@ -22,6 +22,9 @@ class User(AbstractUser):
     about_text = models.TextField(null=True, blank=True, verbose_name='O mnie')
     sex = models.CharField(max_length=1, choices=SEX, verbose_name='Płeć')
 
+    def get_absolute_url(self):
+        return reverse('user-detail', kwargs={'pk': self.id})
+
 
 class News(models.Model):
     title = models.CharField('Tytuł', max_length=50)

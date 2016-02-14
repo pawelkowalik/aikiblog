@@ -4,7 +4,8 @@
 	<a name="content"></a>
 	Dodaj informacje o swoim treningu.<br>
 	Techniki zaznaczaj z klawiszem CTRL.<br>
-	Jeśli nie dodałeś jeszcze technik z tego treningu, dodaj je za pomocą <a href="{% url "add-techniques" %}#content"><u>tego formularza!</u></a>,<br> lub kliknij znak + obok okna wyboru technik<br><br>
+	Jeśli nie dodałeś jeszcze technik z tego treningu, dodaj je za pomocą <a href="{% url "add-techniques" %}#content">
+	<u>tego formularza!</u></a>,<br> lub kliknij znak + obok okna wyboru technik<br><br>
 <table>
 	<form method="post" class="form-horizontal" role="form">
 		{% csrf_token %}
@@ -17,7 +18,12 @@
 					</tr>
 				{% elif field.name == 'techniques' %}
 					<tr><td id="form_label">{{ field.label }}:</td>
-						<td valign="top">{{ field }}<td><a onclick="myOpen();" onmouseover=" " style="cursor: pointer;"><b><font size="6">+</font></b></a></td></td>
+						<td valign="top">
+							<select multiple="multiple" id="id_techniques" name="techniques" size="18">
+								{% for technique in techniques %}
+									<option value={{ technique.id }}>{{ technique.slug }}</option>
+								{% endfor %}
+							</select><td><a onclick="myOpen();" onmouseover=" " style="cursor: pointer;"><b><font size="6">+</font></b></a></td></td>
 						<td id="form_errors">{% for error in field.errors %}{{ error }}{% endfor %}</td>
 					</tr>
 					<tr>

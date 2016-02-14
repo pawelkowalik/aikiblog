@@ -1,0 +1,26 @@
+{% extends "base_forms.html" %}
+
+{% block content %}
+Ustaw swój avatar:
+	<table>
+	<form method="post" action="/change_avatar/{{ user.id }}/" enctype="multipart/form-data">
+	{% csrf_token %}
+		<tr>
+			<td><input id="id_first_name" name="first_name" type="text" value={{ request.user.first_name }} hidden="hidden"></td>
+			<td><input id="id_last_name" name="last_name" type="text" value={{ request.user.last_name }} hidden="hidden"></td>
+			<td><input id="id_start_year" name="start_year" type="number" value={{ request.user.start_year }} hidden="hidden"></td>
+			<td>
+				<select id="id_sex" name="sex"  hidden="hidden"><option value={{ request.user.sex }} selected="selected"> </option></select>
+			</td>
+			<td><textarea cols="40" id="id_about_me" name="about_me" rows="10" hidden="hidden">{{ request.user.about_text }}</textarea></td>
+		</tr>
+		<tr>
+			<td>Teraz:<br><img src="{{ STATIC_URL|cut:'static/' }}{{ request.user.avatar }}" height=200 alt="" class="center" ><br>Zmień:{{ form.avatar }}</td>
+			<td id="form_errors" style="vertical-align: bottom">{{ form.avatar.errors }}</td>
+		</tr>
+		<tr>
+			<td><button type="submit" class="btn btn-primary">Zapisz</button></td>
+		</tr>
+	</form>
+	</table>
+{% endblock %}

@@ -12,9 +12,8 @@ from django.views import generic
 from annoying.decorators import render_to
 
 from .forms import (SaveUserDataForm, AddTrainingForm, AddTechniquesForm,
-                    TrainingCommentForm)
-from .models import Training, User, Dojo, News, TechTren, TrainingComment, Technique, Image
-from .forms import UpdateTrainingForm, ImageForm, TrainingForm, get_image_formset
+                    TrainingCommentForm, UpdateTrainingForm, ImageForm, get_image_formset)
+from .models import Training, User, Dojo, News, TechTren, TrainingComment, Technique
 from PIL import Image
 
 User = get_user_model()
@@ -194,19 +193,36 @@ class TechTrenUpdate(generic.edit.UpdateView):
     template_name_suffix = '_update'
 
 
+class UserUpdate(generic.edit.UpdateView):
+    model = User
+    fields = ['first_name', 'last_name', 'start_year', 'about_text', 'sex']
+    template_name_suffix = '_update'
+
+
 @render_to('save_user_data.html')
 def save_user_data(request, user_id):
         form = SaveUserDataForm(request.POST or None, request.FILES or None)
         if form.is_valid():
             form.save(user_id)
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect("/")
         else:
             return {'save_user_data_form': form}
+
+
+@render_to('change_avatar.html')
+def change_avatar(request, user_id):
+        form = SaveUserDataForm(request.POST or None, request.FILES or None)
+        if form.is_valid():
+            form.save(user_id)
+            return HttpResponseRedirect('/user/'+user_id)
+        else:
+            return render(request, 'change_avatar.html', {'form': form})
 
 
 @render_to('add_training.html')
 def add_training(request):
     form = AddTrainingForm(request.POST or None, request=request)
+    techniques = TechTren.objects.filter(user=request.user)
     if form.is_valid():
         user = request.user
         training = Training.objects.create(
@@ -221,11 +237,12 @@ def add_training(request):
 
         return HttpResponseRedirect('/')
     else:
-        return render(request, 'add_training.html', {'form': form})
+        return render(request, 'add_training.html', {'form': form, 'techniques': techniques})
 
 
 def add_stage(request):
     form = AddTrainingForm(request.POST or None, request=request)
+    techniques = TechTren.objects.filter(user=request.user)
     if form.is_valid():
         user = request.user
         training = Training.objects.create(
@@ -240,7 +257,7 @@ def add_stage(request):
 
         return HttpResponseRedirect('/')
     else:
-        return render(request, 'add_stage.html', {'form': form})
+        return render(request, 'add_stage.html', {'form': form, 'techniques': techniques})
 
 
 def add_techniques(request):
@@ -269,8 +286,6 @@ def add_images(request, training_id):
     if request.method == 'POST':
         formset = ImageFormset(request.POST, request.FILES, instance=training)
         if formset.is_valid():
-            for form in formset:
-                print(form)
             formset.save()
 
             return HttpResponseRedirect('/training/'+training.slug+'/#content')

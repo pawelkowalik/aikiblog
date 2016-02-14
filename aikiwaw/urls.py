@@ -3,8 +3,8 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from aikiblog.views import (TrainingList, StageList, TrainingDetail, UserDetail, DojoList, DojoDetail, NewsList,
-                            NewsDetail, TechniqueList, TrainingUpdate, TechTrenUpdate, month, calendar, add_stage,
-                            add_training, add_techniques, add_images, save_user_data)
+                            NewsDetail, TechniqueList, TrainingUpdate, TechTrenUpdate, UserUpdate, month, calendar, add_stage,
+                            add_training, add_techniques, add_images, save_user_data, change_avatar)
 
 admin.autodiscover()
 
@@ -27,12 +27,14 @@ urlpatterns = patterns('',
         url(r'^technique/(?P<slug>[\w\-_]+)/(?P<page>[0-9]+)/$', TechniqueList.as_view(), name='technique-list'),
         url(r'^technique/(?P<slug>[\w\-_]+)/$', TechniqueList.as_view(), name='technique-list'),
         url(r'^user/(?P<pk>[\w\-_]+)/$', UserDetail.as_view(), name='user-detail'),
+        url(r'^user_update/(?P<pk>[\w\-_]+)/$', UserUpdate.as_view(), name='user-update'),
         url(r'^accounts/', include('registration.backends.default.urls')),
         url(r'^add_techniques/$', add_techniques, name='add-techniques'),
         url(r'^add_training/$', add_training, name='add-training'),
         url(r'^add_stage/$', add_stage, name='add-stage'),
         url(r'^add_images/((?P<training_id>[\d]+))/$', add_images, name='add-images'),
-        url(r'^(?P<user_id>[\d]+)/save_user_data', save_user_data, name='save_user_data'),
+        url(r'^save_user_data/(?P<user_id>[\d]+)/$', save_user_data, name='save_user_data'),
+        url(r'^change_avatar/((?P<user_id>[\d]+))/$', change_avatar, name='change-avatar'),
         url(r'^calendar/(\d+)/$', calendar, name='calendar'),
         url(r'^calendar/$', calendar, name='calendar'),
         url(r"^calendar/month/(\d+)/(\d+)/(prev|next)/$", month, name='month'),

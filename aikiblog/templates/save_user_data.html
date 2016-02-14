@@ -12,7 +12,7 @@ Aby w pełni móc korzystać z serwisu, ustaw swoje podstawowe dane:<br><br>
 		<td id="form_label">E-mail:</td>
 		<td>{{ user.email}}</td>
 	</tr>
-	<form method="post" action="/{{ user.id }}/save_user_data" enctype="multipart/form-data">
+	<form method="post" action="/save_user_data/{{ user.id }}/" enctype="multipart/form-data">
 	{% csrf_token %}
 		<tr>
 			<td id="form_label">Imię:</td>
