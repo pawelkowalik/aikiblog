@@ -1,3 +1,6 @@
+@import url(https://fonts.googleapis.com/css?family=Lato&subset=latin-ext);
+@import url(https://fonts.googleapis.com/css?family=Prosto+One&subset=latin,latin-ext);
+
 html, body
 {
     background-image:url(images/bg.png);
@@ -6,7 +9,7 @@ html, body
 	margin: 0;
 	padding: 0;
 	text-align: center;
-	text-shadow: 1px 1px 0px white;
+    font-family: Lato;
 }
 
 
@@ -14,6 +17,13 @@ a:link { color: #515151; text-decoration: none; background-color: transparent;}
 a:visited { color: #515151; text-decoration: none; background-color: transparent }
 a:hover { color: #373737; text-decoration: none; background-color: transparent;}
 a:active { color: #515151; text-decoration: dashed; background-color:transparent }
+
+#menu_2 a:link { color: #515151; text-decoration: none; background-color: transparent;}
+#menu_2 a:visited { color: #515151; text-decoration: none; background-color: transparent; }
+#menu_2 a:hover { color: #962225; text-decoration: none; background-color: transparent;}
+#menu_2 a:active { color: #515151; text-decoration: none; background-color:transparent; }
+#menu_2 div:hover { background-color: #f6f6f6; box-shadow: 0 0 4px 1px black;}
+#submenu div:hover { background-color: #efefef }
 
 #top
 {
@@ -27,11 +37,11 @@ a:active { color: #515151; text-decoration: dashed; background-color:transparent
 	box-shadow: 0 0 30px 1px black;
 }
 
-#NAGLOWEK
+#header
 {
-        background-image:url(images/logo03.png);
-        width: 1080px;
-        height: 294px;
+    background-image:url(images/logo03.png);
+    width: 1080px;
+    height: 294px;
 	background-color: #eeeeee;
 	clear:both;
 	
@@ -44,29 +54,67 @@ a:active { color: #515151; text-decoration: dashed; background-color:transparent
         text-align: left;
         text-decoration:none;
         font-weight: bold;
-        font-family: Trebuchet MS;
+        font-family: Prosto One;
         color: #962225;
         padding-top: 20px;
         padding-left: 100px;
         border-top: 1px dashed #CBCBCB;
         clear:both;
+
 }
 
 #menu_2
  {
         width: 900px;
-        height: 50px;
-        text-align: left;
+        height: 60px;
         text-decoration:none;
-        font-weight: bold;
-        font-family: Trebuchet MS;
+        vert-align: middle;
+        font-family: Lato;
         color: #962225;
         padding-top: 20px;
         padding-left: 100px;
-        border-top: 1px dashed #CBCBCB;
         clear:both;
+        font-size: 15px;
+        position: sticky;
 }
 
+#menu_item
+{
+    position: relative;
+    float: left;
+    padding-top: 17px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 7px;
+    border-radius: 1px;
+}
+
+#menu_user
+{
+    position: relative;
+    float: left;
+    min-width: 140px;
+    padding-top: 1px;
+    padding-right: 15px;
+    padding-bottom: 7px;
+    border-radius: 1px;
+}
+
+#submenu
+{
+    position: absolute;
+    top: 41px;
+    min-width: 155px;
+    background-color: #f6f6f6;
+    opacity: 0.9;
+    border-radius: 1px;
+    box-shadow: 0 0 4px 1px #747474;
+}
+#submenu_item
+{
+    padding: 7px;
+    border-radius: 1px;
+}
 #main
 {
 width: 560px;
@@ -115,15 +163,15 @@ padding-right: 100px;
 #menuright_avatar
 {
     height: 50px;
-    width: 50px;
+    width: 55px;
     float: left;
 }
 
 #menuright_head
 {
-    width: 250px;
+    width: 245px;
     float: right;
-    font: 14px Verdana;
+    font: 14px Lato;
     text-align: left;
 
 }
@@ -133,7 +181,7 @@ padding-right: 100px;
   width: auto;
   height: auto;
     padding-top: 0px;
-  font: 14px Verdana;
+  font: 14px Lato;
 }
 
 
@@ -143,7 +191,7 @@ padding-right: 100px;
 
   width: auto;
   height: 510px;
-  font: 14px Verdana;
+  font: 14px Lato;
 }
 
 #post
@@ -170,7 +218,7 @@ padding-right: 100px;
 {
     width: 470px;
     float: right;
-    font: 16px Verdana;
+    font: 16px Lato;
 
 }
 
@@ -179,7 +227,7 @@ padding-right: 100px;
     width: 470px;
     height: 35px;
     float: right;
-    font: 20px Verdana;
+    font: 20px Lato;
 
 }
 
@@ -188,7 +236,7 @@ padding-right: 100px;
     width: 470px;
     height: 35px;
     float: right;
-    font: 14px Verdana;
+    font: 14px Lato;
 
 }
 #post_head_news
@@ -196,7 +244,7 @@ padding-right: 100px;
     width: 380px;
     height: 35px;
     float: right;
-    font: 20px Verdana;
+    font: 20px Lato;
 
 }
 
@@ -205,14 +253,14 @@ padding-right: 100px;
     width: 380px;
     height: 35px;
     float: right;
-    font: 14px Verdana;
+    font: 14px Lato;
 
 }
 #post_head_user_detail
 {
     width: 440px;
     float: right;
-    font: 14px Verdana;
+    font: 14px Lato;
 
 }
 
@@ -220,7 +268,7 @@ padding-right: 100px;
 {
     width: 570px;
     float: right;
-    font: 20px Verdana;
+    font: 20px Lato;
 
 }
 
@@ -228,7 +276,7 @@ padding-right: 100px;
 {
     width: 570px;
     float: right;
-    font: 14px Verdana;
+    font: 14px Lato;
 
 }
 
@@ -236,7 +284,7 @@ padding-right: 100px;
 {
     width: 450px;
     float: right;
-    font: 20px Verdana;
+    font: 20px Lato;
 
 }
 
@@ -289,7 +337,7 @@ padding-right: 100px;
 {
     height: 45px;
     width: 200px;
-    font: 14px Verdana;
+    font: 14px Lato;
 
 }
 
@@ -303,7 +351,7 @@ padding-right: 100px;
 {
     height: 18px;
     text-align: left;
-    font: 12px Verdana;
+    font: 12px Lato;
     padding-top: 6px;
 
 }
@@ -312,7 +360,7 @@ padding-right: 100px;
 {
     text-align: right;
     font-weight: bold;
-
+    line-height: 26px;
 }
 
 
@@ -327,7 +375,7 @@ padding-right: 100px;
 {
     text-align: center;
     color: #ffffff;
-    font: 4px Verdana;
+    font: 4px Lato;
 }
 
 #table_header_cell
@@ -340,21 +388,21 @@ padding-right: 100px;
 #table_stand_cell
 {
     text-align: left;
-    font: 12px Verdana;
+    font: 12px Lato;
 
 }
 
 #table_technique_cell
 {
     text-align: left;
-    font: 12px Verdana;
+    font: 12px Lato;
 
 }
 
 #table_month_row
 {
     text-align: center;
-    font: 12px Verdana;
+    font: 12px Lato;
 }
 
 #table_month_cell
@@ -377,7 +425,7 @@ padding-right: 100px;
 {
     height: 80px;
     width: 100px;
-    color: #666;
+    color: #000000;
     text-shadow: 0 1px 0 rgba(255,255,255,0.5);
     padding: 8px;
     text-align: center;
@@ -448,7 +496,7 @@ padding-right: 100px;
 #table_techniques_date_cell
 {
     text-align: left;
-    font: 12px Verdana;
+    font: 12px Lato;
     color: #616161;
     height: 40px;
     width: 70px;
@@ -457,7 +505,7 @@ padding-right: 100px;
 #table_techniques_stand_cell
 {
     text-align: left;
-    font: 12px Verdana;
+    font: 12px Lato;
     color: #616161;
     height: 20px;
     width: 100px;
@@ -466,7 +514,7 @@ padding-right: 100px;
 #table_techniques_attack_cell
 {
     text-align: left;
-    font: 12px Verdana;
+    font: 12px Lato;
     color: #616161;
     height: 20px;
     width: 100px;
@@ -475,7 +523,7 @@ padding-right: 100px;
 #table_techniques_mistakes_cell
 {
     text-align: left;
-    font: 12px Verdana;
+    font: 12px Lato;
     color: #616161;
     height: 20px;
     width: 275px;
@@ -485,7 +533,7 @@ padding-right: 100px;
 #pagination_left
 {
     text-align: left;
-    font: 12px Verdana;
+    font: 12px Lato;
     color: #616161;
     height: 20px;
     width: 100px;
@@ -500,7 +548,7 @@ padding-right: 100px;
 #pagination_right
 {
     text-align: right;
-    font: 12px Verdana;
+    font: 12px Lato;
     color: #616161;
     height: 20px;
     width: 100px;
@@ -508,7 +556,7 @@ padding-right: 100px;
 
 #footer
 {
-        font: 14px Verdana;
+        font: 14px Lato;
         clear:both;
         background-color:#ffffff;
         width: 900px;
@@ -526,7 +574,7 @@ padding-right: 100px;
 }
 
 h1 {
-  font: 14px Verdana;
+  font: 14px Lato;
   color: #ffffff;
   font-weight: normal;
   }
@@ -538,10 +586,10 @@ text-align:center;
 }
 
 a:hover {
-transition:all 1s;
--moz-transition:all 1s;
--webkit-transition:all 1s;
--o-transition:all 1s;
+transition:all 0.25s;
+-moz-transition:all 0.25s;
+-webkit-transition:all 0.25s;
+-o-transition:all 0.25s;
 text-decoration: #000000 underline dashed;
 }
 
@@ -555,7 +603,7 @@ text-shadow: 1px 1px 0px white;
 
 h6
 {
-font: 6px Verdana;
+font: 6px Lato;
 color: #373737;
 }
 
@@ -571,4 +619,78 @@ color: #373737;
     border: 1px solid #000;
     width: 400px;
     height: 400px;
+}
+
+#id_date, #id_place,  #id_sensei, #id_notes, #id_attack, #id_stand, #id_technique, #id_mistakes, #id_text
+{
+    margin: 5px;
+    background-color: white;
+    border: 0;
+    border-radius: 3px;
+    width: 300px;
+    box-shadow: 0 0 4px 1px #464646;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+#id_username, #id_password, #id_email, #id_password1, #id_password2
+{
+    margin: 5px;
+    background-color: white;
+    border: 0;
+    border-radius: 3px;
+    width: 150px;
+    box-shadow: 0 0 4px 1px #464646;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+
+#id_techniques
+{
+    margin: 5px;
+    background-color: white;
+    border: 0;
+    border-radius: 3px;
+    width: auto;
+    box-shadow: 0 0 2px 1px #464646;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+#id_text
+{
+    margin: 5px;
+    background-color: white;
+    border: 0;
+    border-radius: 3px;
+    width: 200px;
+    height: 23px;
+    box-shadow: 0 0 4px 1px #464646;
+}
+
+#id_date:focus, #id_place:focus, #id_sensei:focus, #id_techniques:focus, #id_notes:focus,
+#id_stand:focus, #id_attack:focus, #id_technique:focus, #id_mistakes:focus, #id_text:focus,
+#id_username:focus, #id_password:focus, #id_email:focus, #id_password1:focus, #id_password2:focus
+{
+    box-shadow: 0 0 7px 1px #000000;
+}
+
+
+
+button {
+    margin: 5px;
+    background-color: white;
+    height: 25px;
+    width: 150px;
+    border: 0;
+    border-radius: 3px;
+    box-shadow: 0 0 4px 1px #464646;
+    cursor: pointer;
+}
+
+#add_comment_button {
+    height: 25px;
+    width: 75px;
+    box-shadow: 0 0 3px 1px #464646;
 }

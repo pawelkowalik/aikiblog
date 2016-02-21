@@ -222,7 +222,7 @@ def change_avatar(request, user_id):
 @render_to('add_training.html')
 def add_training(request):
     form = AddTrainingForm(request.POST or None, request=request)
-    techniques = TechTren.objects.filter(user=request.user)
+    techniques = TechTren.objects.filter(user=request.user).order_by('-date')
     if form.is_valid():
         user = request.user
         training = Training.objects.create(
@@ -235,14 +235,14 @@ def add_training(request):
             )
         training.techniques.add(*form.cleaned_data['techniques'])
 
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/training/'+training.slug+'/#content')
     else:
         return render(request, 'add_training.html', {'form': form, 'techniques': techniques})
 
 
 def add_stage(request):
     form = AddTrainingForm(request.POST or None, request=request)
-    techniques = TechTren.objects.filter(user=request.user)
+    techniques = TechTren.objects.filter(user=request.user).order_by('-date')
     if form.is_valid():
         user = request.user
         training = Training.objects.create(
@@ -255,7 +255,7 @@ def add_stage(request):
             )
         training.techniques.add(*form.cleaned_data['techniques'])
 
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/training/'+training.slug+'/#content')
     else:
         return render(request, 'add_stage.html', {'form': form, 'techniques': techniques})
 
