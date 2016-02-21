@@ -1,4 +1,5 @@
 {%  extends "base_forms.html" %}
+{% load staticfiles %}
 {% block content %}
 	<meta http-equiv="Refresh" content="60" />
 	<a name="content"></a>
@@ -9,50 +10,58 @@
 <table>
 	<form method="post" class="form-horizontal" role="form">
 		{% csrf_token %}
-				<div class="form-group">
-					{% for field in form %}
-						{% if field.name == 'date' %}
-							<tr><td id="form_label">{{ field.label }}:</td>
-							<td>{{ field }}(dd.mm.rrrr gg:mm)</td>
-							<td id="form_errors">{% for error in field.errors %}{{ error }}{% endfor %}</td>
-							</tr>
-						{% elif field.name == 'techniques' %}
-						<tr><td id="form_label">{{ field.label }}:</td>
+		<div class="form-group">
+			{% for field in form %}
+				{% if field.name == 'techniques' %}
+					<tr><td id="form_label">{{ field.label }}:</td>
 						<td valign="top">
 							<select multiple="multiple" id="id_techniques" name="techniques" size="18">
 								{% for technique in techniques %}
-									<option value={{ technique.id }}>{{ technique.slug }}</option>
+									<option value={{ technique.id }}>{{ technique.date|date:"d.m.y" }} - {{ technique.stand.name }} {{ technique.attack.name }} {{ technique.technique.name }}</option>
 								{% endfor %}
 							</select><td><a onclick="myOpen();" onmouseover=" " style="cursor: pointer;"><b><font size="6">+</font></b></a></td></td>
 						<td id="form_errors">{% for error in field.errors %}{{ error }}{% endfor %}</td>
-						</tr>
-						<tr>
-							<td></td>
-							<td><a onclick="window.location.reload()" target="_blank" onmouseover=" " style="cursor: pointer;">Odśwież bazę</a></td>
-						</tr>
-						{% else %}
-							<tr><td id="form_label">{{ field.label }}:</td>
-							<td>{{ field }}</td>
-							<td id="form_errors">{% for error in field.errors %}{{ error }}{% endfor %}</td>
-							</tr>
-						{% endif %}
-					{% endfor %}
-				</div>
+					</tr>
+					<tr>
+						<td></td>
+						<td><a onclick="window.location.reload()" target="_blank" onmouseover=" " style="cursor: pointer;">Odśwież bazę</a></td>
+					</tr>
+				{% else %}
+					<tr>
+						<td id="form_label">{{ field.label }}:</td>
+						<td>{{ field }}</td>
+						<td id="form_errors">{% for error in field.errors %}{{ error }}{% endfor %}</td>
+					</tr>
+				{% endif %}
+			{% endfor %}
+		</div>
 		<tr>
-		<td></td>
-		<td>
-			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10">
-					<button type="submit" class="btn btn-default">Zapisz</button>
+			<td></td>
+			<td>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-default">Zapisz</button>
+					</div>
 				</div>
-			</div>
-		</td>
+			</td>
 		</tr>
 	</form>
 </table>
 	<script>
 	function myOpen() {
-		window.open("{% url "add-techniques" %}#content", null, "height=360, width=550, status=no, toolbar=no, menubar=no, location=no");
+		window.open("{% url "add-techniques" %}#content", null, "height=327, width=550, status=no, toolbar=no, menubar=no, location=no");
 	}
+	</script>
+	<script src="{% static 'js/datetimepicker/jquery.datetimepicker.full.min.js' %}"></script>
+	<script>
+		$(document).ready(function(){
+			$('#id_place').autocomplete();
+			$.datetimepicker.setLocale('pl');
+			$('#id_date').datetimepicker({
+				step: 15,
+				format:'d.m.Y H:i',
+				dayOfWeekStart: 1
+			});
+		});
 	</script>
 {% endblock %}

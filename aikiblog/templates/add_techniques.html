@@ -1,4 +1,5 @@
 {%  extends "base_forms.html" %}
+{%  load staticfiles %}
 {% block content %}
 
 	Dodaj techniki ze swojego treningu lub stażu:<br><br>
@@ -8,18 +9,11 @@
 		{% csrf_token %}
 				<div class="form-group">
 					{% for field in form %}
-						{% if field.name == 'date' %}
-							<tr><td id="form_label">{{ field.label }}:</td>
-								<td>{{ field }}(dd.mm.rrrr)</td>
-								<td id="form_errors">{% for error in field.errors %}{{ error }}{% endfor %}</td>
-							</tr>
-						{% else %}
-							<tr>
-								<td id="form_label">{{ field.label }}:</td>
-								<td>{{ field }}</td>
-								<td id="form_errors">{% for error in field.errors %}{{ error }}{% endfor %}</td>
-							</tr>
-						{% endif %}
+						<tr>
+							<td id="form_label">{{ field.label }}:</td>
+							<td>{{ field }}</td>
+							<td id="form_errors">{% for error in field.errors %}{{ error }}{% endfor %}</td>
+						</tr>
 					{% endfor %}
 				</div>
 		<tr><td></td>
@@ -63,4 +57,16 @@
 		</tr>
 		{% endfor %}
 	</table>
+	<script src="{% static 'js/datetimepicker/jquery.datetimepicker.full.min.js' %}"></script>
+	<script>
+		$(document).ready(function(){
+			$.datetimepicker.setLocale('pl');
+			$('#id_date').datetimepicker({
+				step: 15,
+				format:'d.m.Y',
+				dayOfWeekStart: 1,
+				timepicker: false
+			});
+		});
+	</script>
 {% endblock %}

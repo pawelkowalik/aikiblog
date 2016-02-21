@@ -9,7 +9,7 @@
                     {% for field in form %}
                         {% if field.name == 'username' %}
                         <tr><td id="form_label">{{ field.label }}:</td>
-					        <td>{{ field }}Maks. 30 znaków. Tylko litery, cyfry i znaki @/./+/-/_.</td>
+					        <td>{{ field }} Maks. 30 znaków. Tylko litery, cyfry i znaki @/./+/-/_.</td>
                             <td id="form_errors">{% for error in field.errors %}{{ error }}{% endfor %}</td>
                         </tr>
                         {% else %}
@@ -19,7 +19,7 @@
                         </tr>
                     {% endif %}
                     {% endfor %}
-                <tr><td></td><td><input type="submit" value="Zarejestruj" /></td></tr>
+                <tr><td></td><td><button type="submit" >Zarejestruj</button></td></tr>
                 </table><br>
 
         </form>

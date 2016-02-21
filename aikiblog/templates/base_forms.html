@@ -6,35 +6,57 @@
 <meta name="robots" content="ALL">
 <title>AIKI-BLOG</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}style.css"  />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}style.css">
+<link rel="stylesheet" type="text/css" href="{% static 'js/datetimepicker/jquery.datetimepicker.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'js/jquery_ui/jquery-ui.min.css' %}">
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/jquery_ui/jquery-ui.min.js' %}"></script>
+<script>
+$(document).ready(function() {
+	$('#submenu').hide();
+	$('#menu_user').hover(function() {
+				$('#submenu').show();
+			},
+			function() {
+				$('#submenu').hide();
+			})
+});
+</script>
+{% block head %}
+{% endblock %}
 </head>
 <body>
 <div id="top">
-	<div id="NAGLOWEK">&nbsp;</div>
-		{% if not request.user.is_authenticated %}
-		    <div id="menu_2">
-		{% else %}
-		    <div id="menu">
-		{% endif %}
-			<a href="{% url "news-list" %}"><font color=#962225>NEWS</font></a> &nbsp;
-			|&nbsp; <a href="{% url "training-list" %}"><font color=#962225>TRENINGI</font></a> &nbsp;
-			| &nbsp; <a href="{% url "stage-list" %}"><font color=#962225>STAŻE</font></a> &nbsp;
-			| &nbsp; <a href="{% url "dojo-list" %}"><font color=#962225>DOJO</font></a> &nbsp;
-			| &nbsp; KONTAKT &nbsp;
-			{% csrf_token %}
-			{% if not request.user.is_authenticated %}
-				| &nbsp; <a href="{% url 'auth_login' %}"><font color=#962225>LOGIN</font></a> &nbsp;
-				| &nbsp; <a href="{% url 'registration_register' %}"><font color=#962225>REJESTRACJA</font></a> &nbsp;
-			{% else %}
-				| &nbsp; <a href="{% url 'auth_logout' %}?next=/"><font color=#962225>LOGOUT </font></a>&nbsp;<br><br>
-				<font size = 2px> &nbsp;&nbsp;&nbsp;&nbsp;
-				{% if not request.user.first_name  %}
-					<a href="{% url 'save_user_data' request.user.id %}"><font color=#962225>[USTAW SWOJE DANE]</font></a>
+	<div id="header">&nbsp;</div>
+		<div id="menu_2">
+				{% if request.user.is_authenticated %}
+					<div id="menu_user"><a href="#">
+						&nbsp;&nbsp;&nbsp;&nbsp;<img src="{{ STATIC_URL|cut:'static/' }}{{ request.user.avatar }}" height=30 alt="" class="center" />
+						{{ request.user.first_name|upper }}</a>
+						{% if not request.user.first_name  %}
+							<a href="{% url 'save_user_data' request.user.id %}">[USTAW SWOJE DANE]</a>
+						{% else %}
+						<div id="submenu">
+							<a href="{% url "user-detail" request.user.id %}"><div id="submenu_item">MÓJ<br>PROFIL</div></a>
+							<a href="{% url "add-training" %}"><div id="submenu_item">DODAJ<br>TRENING</div></a>
+							<a href="{% url "add-stage" %}"><div id="submenu_item">DODAJ<br>STAŻ</div></a>
+							<a href="{% url "calendar" %}"><div id="submenu_item">MÓJ<br>KALENDARZ</div></a>
+						</div>
+						{% endif %}
+					</div>
 				{% endif %}
-				<a href="{% url "user-detail" request.user.id %}"><img src="{{ STATIC_URL|cut:'static/' }}{{ request.user.avatar }}" height=30 alt="" class="center" /> {{ request.user.first_name|upper }} {{ request.user.last_name|upper }}</a> &nbsp;
-				| &nbsp; <a href="{% url "add-training" %}">DODAJ TRENING</a>/<a href="{% url "add-stage" %}">STAŻ</a> &nbsp;
-				|&nbsp; <a href="{% url "calendar" %}">MÓJ KALENDARZ</a>&nbsp;
-			{% endif %}
+				<a href="{% url "news-list" %}"><div id="menu_item">NEWS</div></a>
+				<a href="{% url "training-list" %}"><div id="menu_item">TRENINGI</div></a>
+				<a href="{% url "stage-list" %}"><div id="menu_item">STAŻE</div></a>
+				<a href="{% url "dojo-list" %}"><div id="menu_item">DOJO</div></a>
+				<a href="#"><div id="menu_item">KONTAKT</div></a>
+				{% csrf_token %}
+				{% if not request.user.is_authenticated %}
+				<a href="{% url 'auth_login' %}"><div id="menu_item">LOGIN</div></a>
+				<a href="{% url 'registration_register' %}"><div id="menu_item">REJESTRACJA</div></a>
+				{% else %}
+				<a href="{% url 'auth_logout' %}?next=/"><div id="menu_item">LOGOUT</div></a>
+				{% endif %}
 			</div>
 		<div id="container">
 			<div id="main_2">
